@@ -1,103 +1,73 @@
-import Image from "next/image";
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Image from 'next/image';
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+const Home = () => {
+    return<main className="flex min-h-screen flex-col space-y-6 px-16 bg-darkblue text-white">
+        <Header />
+        <section className='flex flex-row justify-between items-start space-x-4'>
+            <div className='space-y-8 pt-16'>
+                <div className='text-left'>
+                    <p className='text-[20px] font-semibold italic text-babyblue'>Para todas tus necesidades</p>
+                    <h1 className='text-[48px] font-black'>Una web creada por personas para conectar con personas</h1>
+                </div>
+                <p className='text-[24px] text-babyblue'>Transmite tu mensaje en segundos con tus compañeros de trabajo, estudio, viaje, fiesta y completos desconocidos.</p>
+                <button className='px-4 py-2 bg-blue rounded'>Ingresar a una sala</button>
+            </div>
+            <Image src="/home-decoration.svg" alt="Chat Simulation" width={670} height={662} className="" />
+        </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        <section className="flex flex-col gap-8 py-16">
+            <div className="text-center">
+                <h2 className="text-3xl font-bold capitalize">Entérate siempre de indicaciones, actualizaciones y alertas que se presenten</h2>
+                <p className="text-lg text-babyblue">Gracias a nuestra plataforma, no volverás a perderte en los eventos. Recibe retroalimentación cuando lo necesites e interactúa con nuevas personas.</p>
+            </div>
+            <div className="flex gap-8">
+                <Image src="/home-decoration-2.svg" alt="Event" width={506} height={424} className="" />
+                <div className="flex flex-col gap-6">
+                    <div className="bg-mediumblue text-white p-4 gap-2 flex flex-col rounded-xl">
+                        <h3 className="text-lg font-bold">Ideal para Eventos</h3>
+                        <p className='text-babyblue'>Parchat es la solución perfecta para mantener a tus asistentes conectados y bien informados durante eventos y reuniones. 
+                            Crea salas de chat personalizadas, comparte un código de acceso y permite que todos participen fácilmente desde cualquier lugar.</p>
+                    </div>
+                    <div className="bg-mediumblue text-white p-4 gap-2 flex flex-col rounded-xl">
+                        <h3 className="text-lg font-bold">Comunicación al Instante</h3>
+                        <p className='text-babyblue'>Al igual que los servicios de mensajería más populares, aquí los mensajes llegan al momento de ser enviados, no te perderás ningún detalle.</p>
+                    </div>
+                    <div className="bg-mediumblue text-white p-4 gap-2 flex flex-col rounded-xl">
+                        <h3 className="text-lg font-bold">Siempre Tienes el Control</h3>
+                        <p className='text-babyblue'>Gestiona fácilmente los asistentes en tu evento, y elimina rápidamente a quienes puedan interferir con el ambiente de este.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section className='flex flex-col gap-8 py-16'>
+            <div className='space-y-2'>
+                <p className='text-[16px] text-purple font-semibold'>¿Dónde usar ParChat?</p>
+                <h2 className="text-3xl font-bold capitalize">Conecta y comunica con nuestra plataforma</h2>
+                <p>La forma más rápida y efectiva de mantener a todos conectados y bien informados. Ya sea en eventos, oficinas o aulas, Parchat facilita la comunicación en tiempo real y sin complicaciones.</p>
+            </div>
+            <div className='flex flex-row justify-between space-x-8 '>
+                <div className='flex flex-col gap-4'>
+                    <Image src="/home-decoration-3.svg" alt="Event" width={400} height={301} className="" />
+                    <h3 className='text-2xl font-semibold text-purple '>Eventos y Convenciones</h3>
+                    <p className='text-[14px]'>Mantén a todos los asistentes conectados y al tanto de anuncios importantes. Perfecto para convenciones, conciertos y festivales.</p>
+                </div>
+                <div className='flex flex-col gap-4'>
+                    <Image src="/home-decoration-4.svg" alt="Event" width={400} height={301} className="" />
+                    <h3 className='text-2xl font-semibold text-purple '>Universidades</h3>
+                    <p className='text-[14px]'>Resuelve dudas de clase, organiza trabajos en grupo o coordina transporte con tus compañeros. ¡Comunicación sin complicaciones!</p>
+                </div>
+                <div className='flex flex-col gap-4'>
+                    <Image src="/home-decoration-5.svg" alt="Event" width={400} height={301} className="" />
+                    <h3 className='text-2xl font-semibold text-purple '>Ambientes Empresariales</h3>
+                    <p className='text-[14px]'>Crea chats de oficina para coordinar tareas sin necesidad de compartir números personales. Comunicación rápida y efectiva en el trabajo.</p>
+                </div>
+            </div>
+        </section>
+        < Footer />
+    </main>
 }
+
+export default Home;

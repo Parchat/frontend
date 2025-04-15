@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+
+:root {
+  --color-blue: #3d5786;
+  --color-babyblue: #a4b6dd;
+  --color-lightpurple: #a58ada;
+  --color-purple: #6e52a3;
+  --color-mediumblue: #11142b;
+  --color-darkblue: #030512;
+}
+
+.bg-blue {
+  background-color: var(--color-blue);
+}
+
+.bg-babyblue {
+  background-color: var(--color-babyblue);
+}
+
+.text-babyblue {
+  color: var(--color-babyblue);
+}
+
+.bg-purple {
+  background-color: var(--color-purple);
+}
+
+.text-purple {
+  color: var(--color-lightpurple);
+}
+
+.bg-darkblue {
+  background-color: var(--color-darkblue);
+}
+
+.bg-mediumblue {
+  background-color: var(--color-mediumblue);
+}

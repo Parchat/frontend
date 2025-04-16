@@ -25,6 +25,7 @@ jobs:
       - name: Install and Build
         run: |
           npm install
+          npm run format
           npm run build
 
       # 4. Enviar archivos a la VM via SSH (usando rsync)

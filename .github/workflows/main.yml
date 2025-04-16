@@ -1,0 +1,50 @@
+name: Deploy Frontend to GCP VM
+
+on:
+  push:
+    branches:
+      - master 
+
+jobs:
+  deploy:
+    name: 🚀 Deploy Next.js to GCP
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout del código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Instalar dependencias y hacer build
+      - name: Install and Build
+        run: |
+          npm install
+          npm run build
+
+      # 4. Enviar archivos a la VM via SSH (usando rsync)
+      - name: Deploy to GCP VM
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          source: "."
+          target: "/home/ubuntu/mi-proyecto/frontend"
+          rm: true  # Elimina archivos antiguos
+
+      # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
+      - name: Restart PM2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/proyectosdanils/frontend
+            pm2 restart frontend

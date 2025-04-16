@@ -10,7 +10,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${raleway.className} antialiased px-16 bg-darkblue text-white`}>
+      <body
+        className={`${raleway.className} antialiased px-16 bg-darkblue text-white overflow-x-hidden`}
+      >
         <Header />
         {children}
         <Footer />

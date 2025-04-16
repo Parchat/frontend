@@ -6,7 +6,7 @@ export default function Login() {
   const [mode, setMode] = useState('login');
 
   return (
-    <main className="flex items-center min-h-screen w-full overflow-hidden">
+    <main className="flex items-center min-h-screen w-full">
       <Image
         src="/squares/multicolor_dark.png"
         alt="multicolor"

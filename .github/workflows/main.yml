@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
           source: "."
-          target: "/home/ubuntu/mi-proyecto/frontend"
+          target: "/home/proyectosdanils/frontend"
           rm: true  # Elimina archivos antiguos
 
       # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)

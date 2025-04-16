@@ -48,4 +48,4 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/frontend
-            pm2 restart frontend
+            pm2 reload frontend --update-env  # Recarga sin crear nuevas instancias

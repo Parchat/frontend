@@ -29,7 +29,7 @@ export default function LoginGest() {
               Entrar a las salas
             </button>
           </form>
-          <div className="flex gap-1">
+          <div className="flex gap-1 text-center flex-col lg:flex-row">
             <p>¿Quieres crear una cuenta?</p>
             <Link className="text-purple" href={'/login'}>
               Click aquí

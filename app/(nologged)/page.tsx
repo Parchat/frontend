@@ -9,11 +9,11 @@ export default function Home() {
             <p className="text-[20px] font-semibold italic text-babyblue">
               Para todas tus necesidades
             </p>
-            <h1 className="text-[48px] font-black">
+            <h1 className="text-[2rem] lg:text-[3rem] font-black">
               Una web creada por personas para conectar con personas
             </h1>
           </div>
-          <p className="text-[24px] text-babyblue">
+          <p className="text-[1rem] lg:text-[2rem] text-babyblue">
             Transmite tu mensaje en segundos con tus compañeros de trabajo, estudio, viaje, fiesta y
             completos desconocidos.
           </p>
@@ -24,7 +24,7 @@ export default function Home() {
           alt="Chat Simulation"
           width={670}
           height={662}
-          className=""
+          className="hidden lg:block"
         />
       </section>
 
@@ -38,7 +38,7 @@ export default function Home() {
             retroalimentación cuando lo necesites e interactúa con nuevas personas.
           </p>
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8">
           <Image src="/home-decoration-2.svg" alt="Event" width={506} height={424} className="" />
           <div className="flex flex-col gap-6">
             <div className="bg-mediumblue text-white p-4 gap-2 flex flex-col rounded-xl">
@@ -79,30 +79,54 @@ export default function Home() {
             complicaciones.
           </p>
         </div>
-        <div className="flex flex-row justify-between space-x-8 ">
+        <div className="flex flex-col lg:flex-row justify-between space-x-8 gap-10 ">
           <div className="flex flex-col gap-4">
-            <Image src="/home-decoration-3.svg" alt="Event" width={400} height={301} className="" />
-            <h3 className="text-2xl font-semibold text-purple ">Eventos y Convenciones</h3>
-            <p className="text-[14px]">
-              Mantén a todos los asistentes conectados y al tanto de anuncios importantes. Perfecto
-              para convenciones, conciertos y festivales.
-            </p>
+            <Image
+              src="/home-decoration-3.svg"
+              alt="Event"
+              width={0}
+              height={0}
+              className="w-[50%] min-w-[200px] max-w-[300px]"
+            />
+            <div className="flex-col">
+              <h3 className="text-2xl font-semibold text-purple ">Eventos y Convenciones</h3>
+              <p className="text-[14px]">
+                Mantén a todos los asistentes conectados y al tanto de anuncios importantes.
+                Perfecto para convenciones, conciertos y festivales.
+              </p>
+            </div>
           </div>
           <div className="flex flex-col gap-4">
-            <Image src="/home-decoration-4.svg" alt="Event" width={400} height={301} className="" />
-            <h3 className="text-2xl font-semibold text-purple ">Universidades</h3>
-            <p className="text-[14px]">
-              Resuelve dudas de clase, organiza trabajos en grupo o coordina transporte con tus
-              compañeros. ¡Comunicación sin complicaciones!
-            </p>
+            <Image
+              src="/home-decoration-4.svg"
+              alt="Event"
+              width={0}
+              height={0}
+              className="w-[50%] min-w-[200px] max-w-[300px]"
+            />
+            <div className="flex-col">
+              <h3 className="text-2xl font-semibold text-purple ">Universidades</h3>
+              <p className="text-[14px]">
+                Resuelve dudas de clase, organiza trabajos en grupo o coordina transporte con tus
+                compañeros. ¡Comunicación sin complicaciones!
+              </p>
+            </div>
           </div>
           <div className="flex flex-col gap-4">
-            <Image src="/home-decoration-5.svg" alt="Event" width={400} height={301} className="" />
-            <h3 className="text-2xl font-semibold text-purple ">Ambientes Empresariales</h3>
-            <p className="text-[14px]">
-              Crea chats de oficina para coordinar tareas sin necesidad de compartir números
-              personales. Comunicación rápida y efectiva en el trabajo.
-            </p>
+            <Image
+              src="/home-decoration-5.svg"
+              alt="Event"
+              width={0}
+              height={0}
+              className="w-[50%] min-w-[200px] max-w-[300px]"
+            />
+            <div className="flex-col">
+              <h3 className="text-2xl font-semibold text-purple ">Ambientes Empresariales</h3>
+              <p className="text-[14px]">
+                Crea chats de oficina para coordinar tareas sin necesidad de compartir números
+                personales. Comunicación rápida y efectiva en el trabajo.
+              </p>
+            </div>
           </div>
         </div>
       </section>

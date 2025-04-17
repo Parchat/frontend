@@ -1,12 +1,12 @@
 const Footer = () => {
   return (
     <section className="flex flex-col py-16 gap-8">
-      <div className="flex flex-row justify-between py-16 border-b">
-        <div className="space-y-2">
+      <div className="flex flex-row justify-between py-16 border-b gap-10 flex-wrap">
+        <div className="space-y-2 w-full">
           <h3 className="text-xl font-semibold">ParChat</h3>
           <h2 className="text-4xl font-bold whitespace-pre-line">Comunica, Conecta y Transmite</h2>
         </div>
-        <div className="flex flex-row space-x-32 px-4">
+        <div className="flex w-full justify-between space-x-32 px-4 flex-wrap gap-5">
           <div className="space-y-6 text-center">
             <h3 className="font-semibold">Stacks</h3>
             <ul className="space-y-4">

@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
           source: "prod-dist"
-          target: "/home/proyectosdanils/frontend"
+          target: "/home/proyectosdanils/frontend-prod"
           port: 22
           timeout: 30s
           rm: true
@@ -55,5 +55,5 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
-            cd /home/proyectosdanils/frontend
-            pm2 reload frontend --update-env  # Recarga sin crear nuevas instancias
+            cd /home/proyectosdanils/frontend-prod
+            pm2 reload frontend-prod --update-env  # Recarga sin crear nuevas instancias

@@ -3,10 +3,15 @@ name: Deploy Frontend to GCP VM
 on:
   push:
     branches:
-      - master 
+      - master
+  pull_request:
+    types: [closed] # (mergeado)
+    branches:
+      - master  
 
 jobs:
   deploy:
+    if: github.event.pull_request.merged == true  # Solo si se hizo merge
     name: 🚀 Deploy Next.js to GCP
     runs-on: ubuntu-latest
 

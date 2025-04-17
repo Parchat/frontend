@@ -25,13 +25,13 @@ jobs:
           node-version: '20'
 
       # 3. Instalar dependencias y hacer build
-      - name: Install and Build
+      - name: Install and format (No build in develop)
         run: |
           npm ci
           npm run format
 
       # 4. Enviar archivos a la VM via SSH (usando rsync)
-      - name: Deploy to GCP VM
+      - name: Deploy to develop GCP VM
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.GCP_VM_IP }}
@@ -51,7 +51,7 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
+          # En la VM se usó pm2 start "npm run dev -- -p 3001" --name "frontend-dev"
           script: |
             cd /home/proyectosdanils/frontend-dev
-            npm ci
             pm2 reload frontend-dev --update-env # Recarga sin crear nuevas instancias

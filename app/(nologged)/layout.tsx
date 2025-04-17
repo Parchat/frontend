@@ -28,11 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${raleway.className} antialiased px-16 bg-darkblue text-white overflow-x-hidden`}
-      >
+      <body className={`${raleway.className} antialiased bg-darkblue text-white overflow-x-hidden`}>
         <Header />
-        {children}
+        <main className="px-5 lg:px-16">{children}</main>
         <Footer />
       </body>
     </html>

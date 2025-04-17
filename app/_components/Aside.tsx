@@ -11,23 +11,23 @@ export default function Aside() {
         <ul className="flex flex-col gap-10">
           <li>
             {/* icon */}
-            <Link href={`/`}>Mis Salas</Link>
+            <Link href={`/dashboard`}>Mis Salas</Link>
           </li>
           <li>
             {/* icon */}
-            <Link href={`/`}>Mi perfil</Link>
+            <Link href={`/dashboard/profile`}>Mi perfil</Link>
           </li>
           <li>
             {/* icon */}
-            <Link href={`/`}>Configuración</Link>
+            <Link href={`/dashboard/configuration`}>Configuración</Link>
           </li>
           <li>
             {/* icon */}
-            <Link href={`/`}>Información</Link>
+            <Link href={`/dashboard/information`}>Información</Link>
           </li>
           <li>
             {/* icon */}
-            <Link href={`/`}>Autores</Link>
+            <Link href={`/dashboard/owners`}>Autores</Link>
           </li>
         </ul>
       </nav>

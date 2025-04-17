@@ -6,13 +6,12 @@ on:
       - master
   pull_request:
     types: [closed] # (mergeado)
-    branches:
-      - master  
+    branches: [master]
 
 jobs:
   deploy:
     if: github.event.pull_request.merged == true  # Solo si se hizo merge
-    name: 🚀 Deploy Next.js to GCP
+    name: 🚀 PRODUCTION Deploy Next.js to GCP
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +31,8 @@ jobs:
           npm install
           npm run format
           npm run build
+          mkdir prod-dist
+          cp -r .next public package.json package-lock.json next.config.js prod-dist
 
       # 4. Enviar archivos a la VM via SSH (usando rsync)
       - name: Deploy to GCP VM
@@ -40,7 +41,7 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          source: "."
+          source: "prod-dist"
           target: "/home/proyectosdanils/frontend"
           port: 22
           timeout: 30s

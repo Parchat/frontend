@@ -41,6 +41,7 @@ jobs:
           target: "/home/proyectosdanils/frontend-dev"
           port: 22
           rm: true
+          debug: true
 
       # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
       - name: Restart PM2

@@ -1,0 +1,57 @@
+name: Deploy Frontend-Develop to GCP VM
+
+on:
+  pull_request:
+    types: [closed] # (mergeado)
+    branches: [develop]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true  # Solo si se hizo merge
+    name: 🚀 Deploy Next.js to GCP
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout del código
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop  # Rama develop
+
+      # 2. Configurar Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # 3. Instalar dependencias y hacer build
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run format
+
+      # 4. Enviar archivos a la VM via SSH (usando rsync)
+      - name: Deploy to GCP VM
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          source: "."
+          target: "/home/proyectosdanils/frontend-dev"
+          port: 22
+          timeout: 30s
+          rm: true
+          exclude: "node_modules, .git"
+
+      # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
+      - name: Restart PM2
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/proyectosdanils/frontend-dev
+            npm ci
+            pm2 reload frontend-dev --update-env # Recarga sin crear nuevas instancias

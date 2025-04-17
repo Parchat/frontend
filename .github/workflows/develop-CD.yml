@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     if: github.event.pull_request.merged == true  # Solo si se hizo merge
-    name: 🚀 Deploy Next.js to GCP
+    name: 🚀🛠 Deploy DEVELOP Next.js to GCP 
     runs-on: ubuntu-latest
 
     steps:
@@ -42,7 +42,6 @@ jobs:
           port: 22
           timeout: 30s
           rm: true
-          exclude: "node_modules, .git"
 
       # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
       - name: Restart PM2

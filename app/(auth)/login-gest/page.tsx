@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export default function LoginGest() {
   return (
-    <main className="flex items-center justify-center min-h-screen w-full">
-      <section className="flex flex-col w-full mx-auto max-w-[600px] gap-20">
+    <section className="flex items-center justify-center min-h-screen w-full">
+      <div className="flex flex-col w-full mx-auto max-w-[600px] gap-20">
         <div className="flex flex-col items-center gap-5">
           <h1 className="font-extrabold text-purple text-4xl text-center">
             Entra como Invitado y Únete a la Conversación
@@ -36,7 +36,7 @@ export default function LoginGest() {
             </Link>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

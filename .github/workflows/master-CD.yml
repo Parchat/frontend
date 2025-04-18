@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '20'
 
-      # 3. Instalar dependencias y hacer build
+      # 3. Instalar dependencias, hacer build y añadir a known_hosts
       - name: Install and Build
         run: |
           npm install
@@ -33,6 +33,10 @@ jobs:
           npm run build
           mkdir prod-dist
           cp -r .next public package.json package-lock.json next.config.js prod-dist
+      - name: Add VM to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
       # 4. Enviar archivos a la VM via SSH (usando rsync)
       - name: Deploy to GCP VM
@@ -56,4 +60,10 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/frontend-prod
-            pm2 reload frontend-prod --update-env  # Recarga sin crear nuevas instancias
+            # Verifica si el proceso existe antes de eliminarlo
+            if pm2 list | grep -q "frontend-prod"; then
+              pm2 delete frontend-prod
+            fi
+            # Inicia el servicio
+            pm2 start "npm run start" --name "frontend-prod" --watch
+            pm2 save

@@ -1,7 +1,5 @@
 import '@/app/_ui/globals.css';
-import { raleway } from '../_ui/fonts';
-import Header from '../_components/Header';
-import Footer from '../_components/Footer';
+import { raleway } from './_ui/fonts';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -21,18 +19,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NoLoggedLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="es">
-      <body className={`${raleway.className} antialiased bg-darkblue text-white overflow-x-hidden`}>
-        <Header />
-        <main className="px-5 lg:px-16">{children}</main>
-        <Footer />
-      </body>
+      <body className={`${raleway.className} overflow-x-hidden`}>{children}</body>
     </html>
   );
 }

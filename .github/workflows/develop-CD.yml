@@ -55,7 +55,6 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          # En la VM se usó pm2 start "npm run dev -- -p 3001 -H 0.0.0.0" --name "frontend-dev" --watch
           script: |
             cd /home/proyectosdanils/frontend-dev
             # Verifica si el proceso existe antes de eliminarlo
@@ -64,4 +63,4 @@ jobs:
             fi
             # Inicia el servicio
             pm2 start "npm run dev -- -p 3001 -H 0.0.0.0" --name "frontend-dev" --watch
-            pm2 save  # Opcional: Guarda los procesos para persistencia
+            pm2 save

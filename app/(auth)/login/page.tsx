@@ -9,7 +9,7 @@ export default function Login() {
   const [mobileModeLogin, setMobileModeLogin] = useState(true);
 
   return (
-    <main className="flex items-center min-h-screen w-full">
+    <section className="flex items-center min-h-screen w-full">
       <Image
         src="/squares/multicolor_dark.png"
         alt="multicolor"
@@ -31,6 +31,6 @@ export default function Login() {
         height={0}
         className={`hidden lg:block absolute w-[50vw] transition-all duration-1000 ease-in-out ${mode === 'login' ? 'right-0' : 'right-[-45%]'} rounded-bl-2xl rounded-tl-2xl`}
       />
-    </main>
+    </section>
   );
 }

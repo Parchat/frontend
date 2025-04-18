@@ -85,6 +85,12 @@ const salas = [
     created_by: 'Usuario 14',
     created_at: '2023-10-14',
   },
+  {
+    id: 15,
+    name: 'Sala 15',
+    created_by: 'Usuario 15',
+    created_at: '2023-10-14',
+  },
 ];
 
 export default function RoomList() {

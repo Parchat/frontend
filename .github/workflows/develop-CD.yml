@@ -7,8 +7,8 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true  # Solo si se hizo merge
-    name: 🚀🛠 Deploy DEVELOP Next.js to GCP 
+    if: github.event.pull_request.merged == true # Solo si se hizo merge
+    name: 🚀🛠 Deploy DEVELOP Next.js to GCP
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: develop  # Rama develop
+          ref: develop # Rama develop
 
       # 2. Configurar Node.js
       - name: Set up Node.js
@@ -34,21 +34,31 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
-      # 4. Enviar archivos a la VM via SSH (usando rsync)
-
+      # 4. Detener PM2 antes de la subida
+      - name: Stop PM2 before upload
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            if pm2 list | grep -q "frontend-dev"; then
+              pm2 delete frontend-dev
+            fi
+      # 5. Enviar archivos a la VM via SSH (usando rsync)
       - name: Deploy to develop GCP VM
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          source: "."
-          target: "/home/proyectosdanils/frontend-dev"
+          source: '.'
+          target: '/home/proyectosdanils/frontend-dev'
           port: 22
           rm: true
           debug: true
 
-      # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
+      # 6. Reiniciar PM2 en la VM (opcional, si usas PM2)
       - name: Restart PM2
         uses: appleboy/ssh-action@v0.1.4
         with:
@@ -57,10 +67,5 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/frontend-dev
-            # Verifica si el proceso existe antes de eliminarlo
-            if pm2 list | grep -q "frontend-dev"; then
-              pm2 delete frontend-dev
-            fi
-            # Inicia el servicio
             pm2 start "npm run dev -- -p 3001 -H 0.0.0.0" --name "frontend-dev" --watch
             pm2 save

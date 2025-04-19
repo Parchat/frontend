@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { AnonymousMaskIcon, GearIcon, InfoIcon, LinkIcon, RoomIcon } from '../_ui/icons';
 import { useIsMobileLarge } from '../_hooks/useIsMobileLarge';
 
-export default function Aside() {
+export default function AsideDashboard() {
   const { isMobileLg } = useIsMobileLarge();
 
   return (
@@ -20,7 +20,7 @@ export default function Aside() {
               <li>
                 <Link href={`/dashboard`} className="flex items-center gap-2">
                   <RoomIcon className="w-7 h-7" />
-                  <span>Mis Salas</span>
+                  <span>Mis Chats</span>
                 </Link>
               </li>
               <li>

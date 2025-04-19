@@ -5,10 +5,12 @@
   --color-babyblue: #a4b6dd;
   --color-lightpurple: #a58ada;
   --color-purple: #6e52a3;
+  --color-purple-2: #262240;
   --color-semidarkpurple: #392f4d;
   --color-darkpurple: #251d35;
   --color-mediumblue: #11142b;
   --color-darkblue: #030512;
+  --color-darkblue-2: #151324;
 }
 
 .bg-blue {
@@ -27,6 +29,10 @@
   background-color: var(--color-purple);
 }
 
+.bg-purple-2 {
+  background-color: var(--color-purple-2);
+}
+
 .bg-semidarkpurple {
   background-color: var(--color-semidarkpurple);
 }
@@ -43,11 +49,15 @@
   background-color: var(--color-darkblue);
 }
 
+.bg-darkblue-2 {
+  background-color: var(--color-darkblue-2);
+}
+
 .bg-mediumblue {
   background-color: var(--color-mediumblue);
 }
 
 body {
-  scrollbar-width: thin;         
-  scrollbar-color: #6e52a3 transparent; 
+  scrollbar-width: thin;
+  scrollbar-color: #6e52a3 transparent;
 }

@@ -51,7 +51,7 @@ jobs:
               pm2 delete frontend-prod
             fi
 
-      # 4. Enviar archivos a la VM via SSH (usando rsync)
+      # 5. Enviar archivos a la VM via SSH (usando rsync)
       - name: Deploy to GCP VM
         uses: appleboy/scp-action@master
         with:
@@ -64,7 +64,7 @@ jobs:
           timeout: 30s
           rm: true
 
-      # 5. Reiniciar PM2 en la VM (opcional, si usas PM2)
+      # 6. Reiniciar PM2 en la VM 
       - name: Restart PM2
         uses: appleboy/ssh-action@master
         with:

@@ -1,4 +1,4 @@
-import Aside from '../_components/Aside';
+import AsideDashboard from '../_components/AsideDashboard';
 
 export default function ProtectedLayout({
   children,
@@ -7,10 +7,10 @@ export default function ProtectedLayout({
 }>) {
   return (
     <div>
-      <main className="text-white flex flex-col lg:grid lg:grid-cols-[15rem_auto] antialiased h-screen w-screen bg-darkpurple">
-        <Aside />
+      <main className="text-white flex flex-col lg:grid lg:grid-cols-[15rem_auto] h-screen w-screen bg-darkpurple">
+        <AsideDashboard />
         {children}
-        <div className="block lg:hidden h-15 rounded-2xl w-full" />
+        <div className="block lg:hidden h-10 rounded-2xl w-full bg-darkblue" />
       </main>
     </div>
   );

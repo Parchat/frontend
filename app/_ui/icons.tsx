@@ -180,3 +180,19 @@ export const CancelIcon = (props: SVGProps<SVGSVGElement>) => (
     </defs>
   </svg>
 );
+
+export const SendIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    width={18}
+    height={16}
+    viewBox="0 0 18 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M0.00857142 16L18 8L0.00857142 0L0 6.22222L12.8571 8L0 9.77778L0.00857142 16Z"
+      fill="#6D69A4"
+    />
+  </svg>
+);

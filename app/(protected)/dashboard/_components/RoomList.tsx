@@ -1,4 +1,6 @@
 import { CancelIcon, DoorBellIcon } from '@/app/_ui/icons';
+import { Tooltip } from '@mui/material';
+import Link from 'next/link';
 
 const salas = [
   {
@@ -95,10 +97,13 @@ const salas = [
 
 export default function RoomList() {
   return (
-    <section className="w-full h-full flex flex-col gap-5 overflow-auto p-5">
+    <section className="w-full h-full flex flex-col gap-5 overflow-auto px-[5vw] py-5">
       {salas.map(sala => (
         <article key={sala.id} className="w-full flex gap-5 items-center justify-between">
-          <div className="flex gap-5 items-center justify-between bg-purple w-full p-3 rounded-2xl">
+          <Link
+            href={`dashboard/room/${sala.id}`}
+            className="flex gap-5 items-center justify-between bg-purple w-full p-3 rounded-2xl"
+          >
             <p className="font-bold text-2xl lg:text-4xl">{sala.name}</p>
             <div className="hidden sm:flex flex-col items-center">
               <p className="font-semibold text-sm">
@@ -108,14 +113,18 @@ export default function RoomList() {
                 Fecha: <span className="font-medium text-sm text-purple">{sala.created_at}</span>
               </p>
             </div>
-          </div>
+          </Link>
           <div className="flex gap-5">
-            <button className="bg-purple rounded-full">
-              <CancelIcon className="w-10 h-10" />{' '}
-            </button>
-            <button className="bg-purple rounded-full">
-              <DoorBellIcon className="w-10 h-10" />{' '}
-            </button>
+            <Tooltip title="Salir de la sala" placement="top">
+              <button className="bg-purple rounded-full">
+                <CancelIcon className="w-10 h-10 cursor-pointer" />{' '}
+              </button>
+            </Tooltip>
+            <Tooltip title="Notificaciones" placement="top">
+              <button className="bg-purple rounded-full">
+                <DoorBellIcon className="w-10 h-10 cursor-pointer" />{' '}
+              </button>
+            </Tooltip>
           </div>
         </article>
       ))}

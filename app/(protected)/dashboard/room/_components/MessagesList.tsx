@@ -5,7 +5,7 @@ interface Props {
 export default async function MessagesList({ id }: Props) {
   const messages = await fetchMessages(id);
   return (
-    <div className="overflow-y-auto p-4 overflow-auto">
+    <div className="p-4 h-full overflow-auto">
       {messages.map(msg => (
         <div key={msg} className="bg-darkblue-2 p-4 rounded-2xl mb-4">
           <p className="text-sm">{msg}</p>

@@ -11,7 +11,7 @@ interface RouterProps {
 export default async function RoomPage({ params }: RouterProps) {
   const { id } = await params;
   return (
-    <div className="grid grid-rows-[auto_1fr_auto] w-full">
+    <div className="grid grid-rows-[auto_1fr_auto] w-full h-full overflow-auto">
       <div className="p-4 bg-semidarkpurple w-full">
         <h2 className="text-2xl font-bold">Nombre de la sala {id}</h2>
         <p className="text-sm">Pública</p>

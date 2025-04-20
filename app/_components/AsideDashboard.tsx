@@ -73,7 +73,7 @@ export default function AsideDashboard() {
       )}
       {/* Mobile aside */}
       {isMobileLg && (
-        <aside className="absolute lg:hidden bottom-0 left-0 right-0 h-10 flex justify-between items-center">
+        <aside className="lg:hidden h-10 flex justify-between items-center">
           <nav className="w-full h-full">
             <ul className="w-full h-full grid grid-cols-5 bg-darkblue rounded-tl-2xl rounded-tr-2xl items-center justify-items-center">
               <li>

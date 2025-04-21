@@ -1,60 +1,48 @@
+'use client';
+
+import { useChatSocket } from '@/app/_hooks/useChatSocket';
+import { IMessage } from '@/app/_interfaces/IMessage';
+import { useEffect, useRef, useState } from 'react';
+import Message from './Message';
+
 interface Props {
-  id: string;
+  room_id: string;
+  initial_messages: IMessage[];
 }
 
-export default async function MessagesList({ id }: Props) {
-  const messages = await fetchMessages(id);
+export default function MessagesList({ room_id, initial_messages }: Props) {
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldScroll, setShouldScroll] = useState(true);
+  const { messages } = useChatSocket({ room_id, initial_messages });
+
+  // Detectar si el usuario scrollea manualmente
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const nearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 50;
+      setShouldScroll(nearBottom);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto scroll solo si el usuario está al fondo
+  useEffect(() => {
+    if (shouldScroll) {
+      bottomRef.current?.scrollIntoView({ behavior: 'auto' });
+    }
+  }, [messages, shouldScroll]);
+
   return (
-    <div className="p-4 h-full overflow-auto">
+    <div ref={containerRef} className="p-4 h-full flex flex-col gap-10 overflow-auto">
       {messages.map(msg => (
-        <div key={msg} className="bg-darkblue-2 p-4 rounded-2xl mb-4">
-          <p className="text-sm">{msg}</p>
-        </div>
+        <Message key={msg.id} message={msg} />
       ))}
+      <div ref={bottomRef} />
     </div>
   );
-}
-
-async function fetchMessages(roomId: string): Promise<string[]> {
-  // Simula una llamada a una API externa
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve([
-        `Mensaje 1 de la sala ${roomId}`,
-        `Mensaje 2 de la sala ${roomId}`,
-        `¡Bienvenido a la sala ${roomId}!`,
-        `Mensaje importante para ${roomId}`,
-        `Notificación de la sala ${roomId}`,
-        `Actualizaciones para ${roomId}`,
-        `Anuncio especial - sala ${roomId}`,
-        `Recordatorio para miembros de ${roomId}`,
-        `Evento próximo en sala ${roomId}`,
-        `Novedades de la sala ${roomId}`,
-        `Información importante - ${roomId}`,
-        `Mensaje del administrador - ${roomId}`,
-        `Actualización de estado - sala ${roomId}`,
-        `Mensaje destacado en ${roomId}`,
-        `Noticia urgente - sala ${roomId}`,
-        `Comunicado oficial - ${roomId}`,
-        `Última hora - sala ${roomId}`,
-        `Mensaje del sistema - ${roomId}`,
-        `Actualización semanal - ${roomId}`,
-        `Aviso importante - sala ${roomId}`,
-        `Chat general - sala ${roomId}`,
-        `Mensaje del día - ${roomId}`,
-        `Recordatorio de reunión - ${roomId}`,
-        `Mensaje de bienvenida - sala ${roomId}`,
-        `Anuncio de evento - ${roomId}`,
-        `Notificación de actividad - ${roomId}`,
-        `Mensaje de seguimiento - ${roomId}`,
-        `Actualización de seguridad - ${roomId}`,
-        `Mensaje de alerta - ${roomId}`,
-        `Notificación de cambio - ${roomId}`,
-        `Mensaje de cierre - ${roomId}`,
-        `Mensaje de despedida - ${roomId}`,
-        `Mensaje de agradecimiento - ${roomId}`,
-        `Mensaje de cumpleaños - ${roomId}`,
-      ]);
-    }, 1000);
-  });
 }

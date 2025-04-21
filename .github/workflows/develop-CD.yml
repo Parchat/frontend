@@ -35,7 +35,7 @@ jobs:
           ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
       # 4. Detener docker-compose antes de la subida
-      - name: Stop PM2 before upload
+      - name: Stop docker compose before upload
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.GCP_VM_IP }}
@@ -58,8 +58,8 @@ jobs:
           rm: true
           debug: true
 
-      # 6. Reiniciar docker en la VM
-      - name: Restart Docker Compose
+      # 6. Start docker en la VM
+      - name: Start Docker Compose
         uses: appleboy/ssh-action@v0.1.4
         with:
           host: ${{ secrets.GCP_VM_IP }}

@@ -1,4 +1,3 @@
-import { SendIcon } from '@/app/_ui/icons';
 import MessagesList from '../_components/MessagesList';
 import { IMessage } from '@/app/_interfaces/IMessage';
 
@@ -12,22 +11,11 @@ export default async function RoomPage({ params }: RouterProps) {
   const messages = await fetchMessages();
   return (
     <div className="grid grid-rows-[auto_1fr_auto] w-full h-full overflow-auto">
-      <div className="p-4 bg-semidarkpurple w-full">
-        <h2 className="text-2xl font-bold">Nombre de la sala {id}</h2>
-        <p className="text-sm">Pública</p>
+      <div className="p-2 lg:p-4 bg-semidarkpurple w-full">
+        <h2 className="text-lg lg:text-2xl font-bold">Nombre de la sala {id}</h2>
+        <p className="text-xs">Pública</p>
       </div>
       <MessagesList room_id={id} initial_messages={messages} />
-      <div className="p-4 px-6 bg-purple-2">
-        <form className="w-full h-full bg-darkblue-2 flex items-center rounded-2xl">
-          <div className="w-full h-full">
-            <label htmlFor="message" hidden />
-            <input id="message" type="text" className="w-full h-full outline-none p-4" />
-          </div>
-          <button className="p-4 cursor-pointer">
-            <SendIcon />
-          </button>
-        </form>
-      </div>
     </div>
   );
 }

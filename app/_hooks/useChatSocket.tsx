@@ -43,15 +43,38 @@ export function useChatSocket({ initial_messages }: Props) {
           content: `Mensaje simulado ${prev.length + 1}`,
         },
       ]);
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
 
   const sendMessage = (msg: string) => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      socketRef.current.send(msg);
-    }
+    // if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
+    //   socketRef.current.send(msg);
+    // }
+    setMessages(prev => [
+      ...prev,
+      {
+        id: String(new Date().getTime()),
+        send_by: 'Danils',
+        send_at: 'pending',
+        content: msg,
+      },
+    ]);
+
+    // Simula la respuesta del servidor
+    setTimeout(() => {
+      setMessages(prev => {
+        return prev.map(msg =>
+          msg.send_at === 'pending'
+            ? {
+                ...msg,
+                send_at: new Date().toISOString(),
+              }
+            : msg
+        );
+      });
+    }, 2000);
   };
 
   return { messages, sendMessage };

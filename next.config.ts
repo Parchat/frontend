@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // @ts-ignore: webpackDevMiddleware no está tipada pero es válida
   webpackDevMiddleware: (config: any) => {
     config.watchOptions = {
       poll: 1000,

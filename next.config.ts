@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -9,6 +10,13 @@ const nextConfig: NextConfig = {
         hostname: 'picsum.photos',
       },
     ],
+  },
+  webpackDevMiddleware: (config: any) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    };
+    return config;
   },
 };
 

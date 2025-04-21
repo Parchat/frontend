@@ -1,5 +1,5 @@
 import Image from 'next/image';
-
+import homeDecoration from '@/public/home-decoration.svg';
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col space-y-6 px-5 lg:px-16">
@@ -20,11 +20,13 @@ export default function Home() {
           <button className="px-4 py-2 bg-blue rounded">Ingresar a una sala</button>
         </div>
         <Image
-          src="/home-decoration.svg"
+          src={homeDecoration}
           alt="Chat Simulation"
           width={670}
           height={662}
           className="hidden lg:block"
+          placeholder="blur"
+          blurDataURL="/home-decoration.svg"
         />
       </section>
 

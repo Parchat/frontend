@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true  # Solo si se hizo merge
+    if: github.event.pull_request.merged == true # Solo si se hizo merge
     name: 🚀 PRODUCTION Deploy Next.js to GCP
     runs-on: ubuntu-latest
 
@@ -38,7 +38,6 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
-
       # 4. Detener PM2 antes de la subida
       - name: Stop PM2 before upload
         uses: appleboy/ssh-action@v0.1.4
@@ -58,13 +57,13 @@ jobs:
           host: ${{ secrets.GCP_VM_IP }}
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          source: "prod-dist"
-          target: "/home/proyectosdanils/frontend-prod"
+          source: 'prod-dist'
+          target: '/home/proyectosdanils/frontend-prod'
           port: 22
           timeout: 30s
           rm: true
 
-      # 6. Reiniciar PM2 en la VM 
+      # 6. Reiniciar PM2 en la VM
       - name: Restart PM2
         uses: appleboy/ssh-action@master
         with:

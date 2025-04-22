@@ -43,4 +43,3 @@ export default function Message({ message }: Props) {
     </div>
   );
 }
-

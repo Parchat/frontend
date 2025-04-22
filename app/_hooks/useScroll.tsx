@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 interface Props<T> {
-  items: T[]
+  items: T[];
 }
-export default function useIsBottom<T>({items}: Props<T>) {
+export default function useIsBottom<T>({ items }: Props<T>) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
   const [isInBottom, setIsInBottom] = useState(true);
@@ -30,4 +30,3 @@ export default function useIsBottom<T>({items}: Props<T>) {
 
   return { containerRef, bottomRef };
 }
-

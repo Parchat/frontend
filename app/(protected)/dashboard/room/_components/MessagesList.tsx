@@ -30,4 +30,3 @@ export default function MessagesList({ room_id, initial_messages }: Props) {
     </>
   );
 }
-

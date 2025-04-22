@@ -25,7 +25,6 @@ jobs:
       - name: Install and format (No build in develop)
         run: |
           npm ci
-          npm run format
 
       # 👉 Build la imagen Docker
       - name: Build Docker image
@@ -55,5 +54,5 @@ jobs:
           script: |
             cd /home/proyectosdanils/
             docker compose down
-            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:develop
+            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage
             docker compose up -d

@@ -13,6 +13,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/quicksand": "^5.2.6",
+    "@fontsource/raleway": "^5.2.5",
     "@fontsource/roboto": "^5.2.5",
     "@mui/material": "^7.0.2",
     "next": "^15.3.0",

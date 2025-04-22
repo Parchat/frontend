@@ -1,5 +1,5 @@
 # Ignorar dependencias locales
-node_modules
+# node_modules se utilizará para mandarse desde github actions
 
 # Ignorar config de Git
 .git

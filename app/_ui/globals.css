@@ -61,3 +61,11 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #6e52a3 transparent;
 }
+
+.font-raleway {
+  font-family: 'Raleway', sans-serif;
+}
+
+.font-quicksand {
+  font-family: 'Quicksand', sans-serif;
+}

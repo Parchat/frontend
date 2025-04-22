@@ -1,7 +1,18 @@
 import '@/app/_ui/globals.css';
-import { raleway } from '../_ui/fonts';
-import Header from '../_components/Header';
-import Footer from '../_components/Footer';
+import '@fontsource/quicksand/300.css';
+import '@fontsource/quicksand/400.css';
+import '@fontsource/quicksand/500.css';
+import '@fontsource/quicksand/600.css';
+import '@fontsource/quicksand/700.css';
+import '@fontsource/raleway/300.css';
+import '@fontsource/raleway/400.css';
+import '@fontsource/raleway/500.css';
+import '@fontsource/raleway/600.css';
+import '@fontsource/raleway/700.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -28,13 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body
-        className={`${raleway.className} antialiased px-16 bg-darkblue text-white overflow-x-hidden`}
-      >
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <body className="font-raleway overflow-x-hidden">{children}</body>
     </html>
   );
 }

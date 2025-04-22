@@ -1,0 +1,21 @@
+# Ignorar dependencias locales
+# node_modules se utilizará para mandarse desde github actions
+
+# Ignorar config de Git
+.git
+.gitignore
+
+# Archivos temporales o de sistema
+.DS_Store
+*.log
+
+# Archivos de desarrollo
+.vscode
+.idea
+
+# Otros archivos que no deben ir al contenedor
+.env
+*.env.local
+tests
+coverage
+README.md

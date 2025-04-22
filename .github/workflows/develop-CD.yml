@@ -1,0 +1,50 @@
+name: Deploy Frontend-Develop to GCP VM
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [develop]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    name: 🚀🛠 Deploy DEVELOP Next.js to GCP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      # 👉 Build la imagen Docker
+      - name: Build Docker image
+        run: docker build -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }} .
+
+      # 👉 Log in to DockerHub
+      - name: DockerHub Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # 👉 Push la imagen
+      - name: Push Docker image to DockerHub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+
+      # 👉 Add VM to known_hosts
+      - name: Add VM to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
+
+      # 👉 Desplegar en la VM
+      - name: Deploy on GCP VM
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/proyectosdanils/
+            docker compose down frontend-dev
+            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+            export DOCKER_IMAGE_FRONTEND_DEV=${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+            docker compose up -d frontend-dev

@@ -59,7 +59,7 @@ export default function MessageInput({ onSend, bottomRef }: Props) {
           onChange={e => setMessage(e.target.value)}
           onKeyDown={onKeyDown}
           rows={1}
-          placeholder='Escribe un mensaje'
+          placeholder="Escribe un mensaje"
         />
       </div>
       <button type="submit" className="p-4 cursor-pointer">
@@ -68,4 +68,3 @@ export default function MessageInput({ onSend, bottomRef }: Props) {
     </form>
   );
 }
-

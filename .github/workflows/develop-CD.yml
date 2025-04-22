@@ -17,18 +17,9 @@ jobs:
         with:
           ref: develop
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install and format (No build in develop)
-        run: |
-          npm ci
-
       # 👉 Build la imagen Docker
       - name: Build Docker image
-        run: docker build -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage .
+        run: docker build -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }} .
 
       # 👉 Log in to DockerHub
       - name: DockerHub Login
@@ -36,7 +27,7 @@ jobs:
 
       # 👉 Push la imagen
       - name: Push Docker image to DockerHub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
 
       # 👉 Add VM to known_hosts
       - name: Add VM to known_hosts
@@ -53,6 +44,7 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/
-            docker compose down
-            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage
-            docker compose up -d
+            docker compose down frontend-dev
+            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+            export DOCKER_IMAGE_FRONTEND_DEV=${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+            docker compose up -d frontend-dev

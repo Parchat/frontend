@@ -46,5 +46,6 @@ jobs:
             cd /home/proyectosdanils/
             docker compose down frontend-dev
             docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+            export DOCKER_IMAGE_FRONTEND_PROD=placeholder
             export DOCKER_IMAGE_FRONTEND_DEV=${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
             docker compose up -d frontend-dev

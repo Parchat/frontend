@@ -20,13 +20,13 @@ export const metadata: Metadata = {
   description:
     'Comunícate y conecta con diferentes comunidades a través de salas de chat en tiempo real',
   icons: {
-    icon: '/favicon.jpg',
+    icon: '/favicon.png',
   },
   openGraph: {
     title: 'Parchat - Salas de chat para comunidades',
     description:
       'Únete a diferentes comunidades y chatea en tiempo real. Crea tus propias salas y conecta con personas que comparten tus intereses.',
-    images: ['/favicon.jpg'], // Ruta de la imagen para compartir
+    images: ['/favicon.png'], // Ruta de la imagen para compartir
     type: 'website',
     locale: 'es_ES',
   },

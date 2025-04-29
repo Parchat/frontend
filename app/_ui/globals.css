@@ -3,7 +3,7 @@
 :root {
   --color-blue: #3d5786;
   --color-babyblue: #a4b6dd;
-  --color-lightpurple: #a58ada;
+  --color-lightpurple: #b79af3;
   --color-purple: #6e52a3;
   --color-purple-2: #262240;
   --color-semidarkpurple: #392f4d;
@@ -68,4 +68,21 @@ body {
 
 .font-quicksand {
   font-family: 'Quicksand', sans-serif;
+}
+
+@keyframes rotateImage {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-rotate-slow {
+  animation: rotateImage 15s linear infinite;
+}
+
+.animate-rotate-medium {
+  animation: rotateImage 5s linear infinite;
 }

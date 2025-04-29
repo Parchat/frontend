@@ -11,7 +11,7 @@ export default function Header() {
       <div className="w-full relative">
         <div className="flex bg-darkblue justify-between items-center p-4 sm:hidden w-full relative z-20 gap-5">
           <Link href="/" className="items-center gap-4 block lg:hidden">
-            <Image src="/w-logo.png" alt="ParChat Logo" width={130} height={20} />
+            <Image src="/w-logo.png" alt="ParChat Logo" width={130} height={20} draggable={false} />
           </Link>
           <div className="flex items-center gap-5">
             <Link href="/login" className="bg-purple rounded p-2">
@@ -41,25 +41,43 @@ export default function Header() {
       </div>
 
       {/* Desktop */}
-      <div className="w-full justify-between items-center gap-5 p-4 font-semibold text-white text-[14px] hidden sm:flex">
+      <div className="w-full justify-between items-center gap-5 p-4 px-8 font-semibold text-white text-[14px] hidden sm:flex">
         <Link href="/" className="items-center gap-4 hidden lg:block">
-          <Image src="/w-logo.png" alt="ParChat Logo" width={160} height={20} />
+          <Image src="/w-logo.png" alt="ParChat Logo" width={160} height={20} draggable={false} />
         </Link>
         <div className="flex">
-          <ul className="flex justify-between gap-5">
+          <ul className="flex justify-between gap-12 text-slate-300">
             <li>
-              <Link href="/">Información</Link>
+              <Link
+                href="/"
+                className="hover:text-violet-300 hover:tracking-wider transition-all duration-300"
+              >
+                Información
+              </Link>
             </li>
             <li>
-              <Link href="/">Salas</Link>
+              <Link
+                href="/"
+                className="hover:text-violet-300 hover:tracking-wider transition-all duration-300"
+              >
+                Salas
+              </Link>
             </li>
             <li>
-              <Link href="/">Contacto</Link>
+              <Link
+                href="/"
+                className="hover:text-violet-300 hover:tracking-wider transition-all duration-300"
+              >
+                Contacto
+              </Link>
             </li>
           </ul>
         </div>
         <div className="flex items-center gap-8">
-          <Link href="/login" className="bg-purple rounded p-2">
+          <Link
+            href="/login"
+            className="bg-purple-900 rounded p-2 px-4 hover:bg-purple-800 transition-all duration-300"
+          >
             Parchemos
           </Link>
           <Link href="/login-gest">Entrar como Invitado</Link>

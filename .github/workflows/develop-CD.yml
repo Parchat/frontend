@@ -35,6 +35,17 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
+      - name: Actualizar o agregar imagen en .env
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/proyectosdanils/
+            sed -i '/^DOCKER_IMAGE_FRONTEND_DEV=/d' .env
+            echo "DOCKER_IMAGE_FRONTEND_DEV=${{ secrets.DOCKER_USERNAME }}/frontend-dev:${{ github.sha }}" >> .env
+
       # 👉 Desplegar en la VM
       - name: Deploy on GCP VM
         uses: appleboy/ssh-action@v0.1.4
@@ -45,7 +56,4 @@ jobs:
           script: |
             cd /home/proyectosdanils/
             docker compose down frontend-dev
-            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
-            export DOCKER_IMAGE_FRONTEND_PROD=placeholder
-            export DOCKER_IMAGE_FRONTEND_DEV=${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
             docker compose up -d frontend-dev

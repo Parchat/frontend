@@ -3,9 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AnonymousMaskIcon, GearIcon, InfoIcon, LinkIcon, RoomIcon } from '../_ui/icons';
 import { useIsMobileLarge } from '../_hooks/useIsMobileLarge';
+import { useAuth } from '../_hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 export default function AsideDashboard() {
   const { isMobileLg } = useIsMobileLarge();
+  const router = useRouter();
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push('/login');
+  };
 
   return (
     <>
@@ -65,7 +74,10 @@ export default function AsideDashboard() {
                 </p>
               </div>
             </div>
-            <button className="bg-purple rounded p-2 w-[80%] cursor-pointer font-bold">
+            <button
+              className="bg-purple rounded p-2 w-[80%] cursor-pointer font-bold"
+              onClick={handleLogout}
+            >
               Cerrar sesión
             </button>
           </div>

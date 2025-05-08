@@ -1,4 +1,12 @@
-export default function DesktopForm({ setMode }: { setMode: (mode: string) => void }) {
+'use client';
+import { useFormStatus } from 'react-dom';
+interface Props {
+  setMode: (mode: string) => void;
+  registerAction: (e: React.FormEvent<HTMLFormElement>) => void;
+  loginAction: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+export default function DesktopForm({ setMode, registerAction, loginAction }: Props) {
   return (
     <div className="hidden lg:flex gap-10 justify-between w-full">
       <section className="w-[100%] flex flex-col items-center gap-5 max-w-[600px] mx-auto">
@@ -8,7 +16,7 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
           </h1>
           <h2>Inicia sesión para acceder a tus salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]">
+        <form className="flex flex-col gap-5 w-[80%]" onSubmit={loginAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="email-login-desktop" className="font-bold">
               Tu correo
@@ -19,6 +27,7 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
               placeholder="Correo electrónico"
               autoComplete="email"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="email"
             />
           </div>
           <div>
@@ -31,9 +40,10 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
               placeholder="Contraseña"
               className="w-full border-1 border-purple-300 p-2 rounded"
               autoComplete="current-password"
+              name="password"
             />
           </div>
-          <button className="bg-purple rounded p-2">Ingresar a la plataforma</button>
+          <SubmitButton text="Ingresar a la plataforma" />
         </form>
         <div className="flex gap-1">
           <p>¿Aún no tienes una cuenta?</p>
@@ -48,16 +58,17 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
           <h1 className="text-2xl font-extrabold text-center">Regístrate y Conecta</h1>
           <h2>Podrás guardar tus conversaciones y salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]">
+        <form className="flex flex-col gap-5 w-[80%]" onSubmit={registerAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="user-register-desktop" className="font-bold">
-              Tu ususuario
+              Tu usuario
             </label>
             <input
               id="user-register-desktop"
               type="text"
-              placeholder="Correo electrónico"
+              placeholder="Usuario"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="displayName"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -70,6 +81,7 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
               placeholder="Correo electrónico"
               autoComplete="email"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="email"
             />
           </div>
           <div>
@@ -82,9 +94,10 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
               placeholder="Contraseña"
               className="w-full border-1 border-purple-300 p-2 rounded"
               autoComplete="current-password"
+              name="password"
             />
           </div>
-          <button className="bg-purple rounded p-2">Crear cuenta</button>
+          <SubmitButton text="Crear cuenta" />
         </form>
         <div className="flex gap-1">
           <p>¿Ya tienes una cuenta?</p>
@@ -94,5 +107,14 @@ export default function DesktopForm({ setMode }: { setMode: (mode: string) => vo
         </div>
       </section>
     </div>
+  );
+}
+
+function SubmitButton({ text }: { text: string }) {
+  const { pending } = useFormStatus();
+  return (
+    <button disabled={pending} className="bg-purple rounded p-2">
+      {pending ? 'Cargando...' : text}
+    </button>
   );
 }

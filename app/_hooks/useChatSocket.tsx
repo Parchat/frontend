@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { IMessage } from '../_interfaces/IMessage';
+import { IMessage } from '../_lib/_interfaces/IMessage';
 
 interface Props {
   room_id: string;

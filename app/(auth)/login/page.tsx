@@ -3,10 +3,27 @@ import Image from 'next/image';
 import { useState } from 'react';
 import DesktopForm from './_components/DesktopForm';
 import MobileForm from './_components/MobileForm';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/app/_hooks/useAuth';
 
 export default function Login() {
   const [mode, setMode] = useState('login');
-  const [mobileModeLogin, setMobileModeLogin] = useState(true);
+  const { login, register } = useAuth();
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    await login(formData);
+    router.push('/dashboard');
+  };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    await register(formData);
+    router.push('/dashboard');
+  };
 
   return (
     <section className="flex items-center min-h-screen w-full">
@@ -19,10 +36,10 @@ export default function Login() {
       />
       <div className="w-full">
         {/* Desktop */}
-        <DesktopForm setMode={setMode} />
+        <DesktopForm setMode={setMode} registerAction={handleRegister} loginAction={handleLogin} />
 
         {/* Mobile */}
-        <MobileForm mobileModeLogin={mobileModeLogin} setMobileModeLogin={setMobileModeLogin} />
+        <MobileForm registerAction={handleRegister} loginAction={handleLogin} />
       </div>
       <Image
         src="/squares/multicolor_dark.png"

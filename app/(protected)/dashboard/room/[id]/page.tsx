@@ -1,5 +1,5 @@
 import MessagesList from '../_components/MessagesList';
-import { IMessage } from '@/app/_interfaces/IMessage';
+import { IMessage } from '@/app/_lib/_interfaces/IMessage';
 
 interface RouterProps {
   params: Promise<{

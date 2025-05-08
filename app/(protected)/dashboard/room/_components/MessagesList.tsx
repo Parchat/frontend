@@ -1,7 +1,7 @@
 'use client';
 
 import { useChatSocket } from '@/app/_hooks/useChatSocket';
-import { IMessage } from '@/app/_interfaces/IMessage';
+import { IMessage } from '@/app/_lib/_interfaces/IMessage';
 import { useEffect, useRef, useState } from 'react';
 import Message from './Message';
 import useIsBottom from '@/app/_hooks/useScroll';

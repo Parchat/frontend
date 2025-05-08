@@ -1,8 +1,14 @@
+'use client';
+import { useState } from 'react';
+
 interface Props {
-  mobileModeLogin: boolean;
-  setMobileModeLogin: (value: boolean) => void;
+  registerAction: (e: React.FormEvent<HTMLFormElement>) => void;
+  loginAction: (e: React.FormEvent<HTMLFormElement>) => void;
 }
-export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Props) {
+
+export default function MobileForm({ registerAction, loginAction }: Props) {
+  const [mobileModeLogin, setMobileModeLogin] = useState(true);
+
   return (
     <div className="flex lg:hidden gap-10 justify-between w-full">
       <section
@@ -14,7 +20,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
           </h1>
           <h2>Inicia sesión para acceder a tus salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]">
+        <form className="flex flex-col gap-5 w-[80%]" onSubmit={loginAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="email-login-mobile" className="font-bold">
               Tu correo
@@ -25,6 +31,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
               placeholder="Correo electrónico"
               autoComplete="email"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="email"
             />
           </div>
           <div>
@@ -37,6 +44,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
               placeholder="Contraseña"
               autoComplete="current-password"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="password"
             />
           </div>
           <button className="bg-purple rounded p-2">Ingresar a la plataforma</button>
@@ -56,7 +64,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
           <h1 className="text-2xl font-extrabold text-center">Regístrate y Conecta</h1>
           <h2>Podrás guardar tus conversaciones y salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]">
+        <form className="flex flex-col gap-5 w-[80%]" onSubmit={registerAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="user-register-mobile" className="font-bold">
               Tu ususuario
@@ -66,6 +74,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
               type="text"
               placeholder="Correo electrónico"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="displayName"
             />
           </div>
           <div className="flex flex-col gap-1">
@@ -78,6 +87,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
               placeholder="Correo electrónico"
               autoComplete="email"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="email"
             />
           </div>
           <div>
@@ -90,6 +100,7 @@ export default function MobileForm({ mobileModeLogin, setMobileModeLogin }: Prop
               placeholder="Contraseña"
               autoComplete="current-password"
               className="w-full border-1 border-purple-300 p-2 rounded"
+              name="password"
             />
           </div>
           <button className="bg-purple rounded p-2">Crear cuenta</button>

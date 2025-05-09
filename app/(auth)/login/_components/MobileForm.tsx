@@ -2,8 +2,8 @@
 import { useState } from 'react';
 
 interface Props {
-  registerAction: (e: React.FormEvent<HTMLFormElement>) => void;
-  loginAction: (e: React.FormEvent<HTMLFormElement>) => void;
+  registerAction: (payload: FormData) => void;
+  loginAction: (payload: FormData) => void;
 }
 
 export default function MobileForm({ registerAction, loginAction }: Props) {
@@ -20,7 +20,7 @@ export default function MobileForm({ registerAction, loginAction }: Props) {
           </h1>
           <h2>Inicia sesión para acceder a tus salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]" onSubmit={loginAction}>
+        <form className="flex flex-col gap-5 w-[80%]" action={loginAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="email-login-mobile" className="font-bold">
               Tu correo
@@ -64,7 +64,7 @@ export default function MobileForm({ registerAction, loginAction }: Props) {
           <h1 className="text-2xl font-extrabold text-center">Regístrate y Conecta</h1>
           <h2>Podrás guardar tus conversaciones y salas</h2>
         </header>
-        <form className="flex flex-col gap-5 w-[80%]" onSubmit={registerAction}>
+        <form className="flex flex-col gap-5 w-[80%]" action={registerAction}>
           <div className="flex flex-col gap-1">
             <label htmlFor="user-register-mobile" className="font-bold">
               Tu ususuario

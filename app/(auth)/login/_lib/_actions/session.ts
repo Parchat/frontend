@@ -10,10 +10,8 @@ export async function createSession(token: string) {
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 7, // 1 semana
   });
-  console.log('Session created with token:', token);
 }
 
 export async function deleteSession() {
   (await cookies()).delete('session');
-  console.log('Session deleted');
 }

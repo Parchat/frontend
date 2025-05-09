@@ -1,4 +1,4 @@
-'use server';
+'use client';
 import { RegisterUserData } from '../_lib/_interfaces/IAuth';
 import myAxios from './myAxios.config';
 

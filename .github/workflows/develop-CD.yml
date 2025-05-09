@@ -17,9 +17,18 @@ jobs:
         with:
           ref: develop
 
-      # 👉 Build la imagen Docker
+      # 👉 Build Docker image with Firebase args
       - name: Build Docker image
-        run: docker build -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }} .
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }} \
+            -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-dev:${{ github.sha }} .
 
       # 👉 Log in to DockerHub
       - name: DockerHub Login
@@ -27,7 +36,7 @@ jobs:
 
       # 👉 Push la imagen
       - name: Push Docker image to DockerHub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-dev:stage-${{ github.sha }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-dev:${{ github.sha }}
 
       # 👉 Add VM to known_hosts
       - name: Add VM to known_hosts
@@ -55,5 +64,4 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/
-            docker compose down frontend-dev
             docker compose up -d frontend-dev

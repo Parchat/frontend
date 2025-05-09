@@ -11,17 +11,13 @@ export default function Login() {
   const { login, register } = useAuth();
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    await login(formData);
+  const handleLogin = async (payload: FormData) => {
+    await login(payload);
     router.push('/dashboard');
   };
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    await register(formData);
+  const handleRegister = async (payload: FormData) => {
+    await register(payload);
     router.push('/dashboard');
   };
 

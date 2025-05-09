@@ -1,20 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from 'react-toastify';
 import { create } from 'zustand';
-import {
-  browserLocalPersistence,
-  setPersistence,
-  signInWithEmailAndPassword,
-  User,
-} from 'firebase/auth';
+import { signInWithEmailAndPassword, UserInfo } from 'firebase/auth';
 import { auth } from '../_lib/_firebase/firebase.config';
 import { loginSchema, registerSchema } from '../(auth)/login/_lib/_schemas/auth';
 import { registerUser } from '../_apis/auth';
 import { createSession, deleteSession } from '../(auth)/login/_lib/_actions/session';
 
 type Auth = {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: UserInfo | null;
+  setUser: (user: UserInfo | null) => void;
   login: (formData: FormData) => Promise<void>;
   register: (formData: FormData) => Promise<void>;
   logout: () => Promise<void>;
@@ -40,8 +35,9 @@ export const useAuth = create<Auth>()(set => ({
 
       await createSession(token);
 
-      await setPersistence(auth, browserLocalPersistence);
-      set({ user });
+      set({ user: user.providerData[0] });
+      window.localStorage.setItem('user', JSON.stringify(user.providerData[0]));
+
       toast.success('Usuario logueado correctamente');
     } catch (error: any) {
       const mensaje =
@@ -72,6 +68,7 @@ export const useAuth = create<Auth>()(set => ({
   },
   logout: async () => {
     await auth.signOut();
+    window.localStorage.removeItem('user');
     await deleteSession();
     set({ user: null });
     toast.success('Usuario deslogueado correctamente');

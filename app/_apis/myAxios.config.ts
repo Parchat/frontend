@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getAuth } from 'firebase/auth';
+import { app } from '../_lib/_firebase/firebase.config';
 
 const myAxios = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -10,12 +11,13 @@ const myAxios = axios.create({
 
 myAxios.interceptors.request.use(
   async config => {
-    const user = getAuth().currentUser;
+    const user = getAuth(app).currentUser;
     if (user) {
       const token = await user.getIdToken();
       config.headers.Authorization = `Bearer ${token}`;
     }
     console.log(process.env.NEXT_PUBLIC_API_URL, 'URL API');
+    console.log(user);
     return config;
   },
   error => {

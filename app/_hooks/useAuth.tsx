@@ -1,15 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from 'react-toastify';
 import { create } from 'zustand';
-import { signInWithEmailAndPassword, UserInfo } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithEmailAndPassword,
+  User,
+} from 'firebase/auth';
 import { auth } from '../_lib/_firebase/firebase.config';
 import { loginSchema, registerSchema } from '../(auth)/login/_lib/_schemas/auth';
 import { registerUser } from '../_apis/auth';
 import { createSession, deleteSession } from '../(auth)/login/_lib/_actions/session';
 
 type Auth = {
-  user: UserInfo | null;
-  setUser: (user: UserInfo | null) => void;
+  user: User | null | undefined;
+  initializeAuth: () => void;
   login: (formData: FormData) => Promise<void>;
   register: (formData: FormData) => Promise<void>;
   logout: () => Promise<void>;
@@ -17,9 +23,24 @@ type Auth = {
 
 export const useAuth = create<Auth>()(set => ({
   user: null,
-  setUser: user => {
-    set({ user });
+  initializeAuth: () => {
+    // Retornamos directamente la función de unsubscribe
+    return onAuthStateChanged(auth, () => {
+      // Forzar una verificación inmediata del estado actual
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        set({ user: currentUser });
+      }
+
+      // Configurar el observer para cambios futuros
+      return onAuthStateChanged(auth, user => {
+        set({
+          user,
+        });
+      });
+    });
   },
+
   login: async (formData: FormData) => {
     const result = loginSchema.safeParse(Object.fromEntries(formData.entries()));
 
@@ -30,13 +51,12 @@ export const useAuth = create<Auth>()(set => ({
 
     const { email, password } = result.data;
     try {
+      await setPersistence(auth, browserLocalPersistence);
+
       const { user } = await signInWithEmailAndPassword(auth, email, password);
       const token = await user.getIdToken();
 
       await createSession(token);
-
-      set({ user: user.providerData[0] });
-      window.localStorage.setItem('user', JSON.stringify(user.providerData[0]));
 
       toast.success('Usuario logueado correctamente');
     } catch (error: any) {

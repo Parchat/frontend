@@ -9,12 +9,17 @@
   --color-semidarkpurple: #392f4d;
   --color-darkpurple: #251d35;
   --color-mediumblue: #11142b;
+  --color-lightblue: #8A9DBF;
   --color-darkblue: #030512;
   --color-darkblue-2: #151324;
 }
 
 .bg-blue {
   background-color: var(--color-blue);
+}
+
+.bg-lightblue {
+  background-color: var(--color-lightblue);
 }
 
 .bg-babyblue {

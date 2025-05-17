@@ -2,19 +2,24 @@
 
 import { useChatSocket } from '@/app/_hooks/useChatSocket';
 import { IMessage } from '@/app/_lib/_interfaces/IMessage';
-import { useEffect, useRef, useState } from 'react';
 import Message from './Message';
 import useIsBottom from '@/app/_hooks/useScroll';
 import MessageInput from './MessageInput';
+import { IRoom } from '@/app/_lib/_interfaces/IRoom';
+import { useAuth } from '@/app/_hooks/useAuth';
+import MessagesInputBlocked from './MessagesInputBlocked';
 
 interface Props {
-  room_id: string;
+  room: IRoom;
   initial_messages: IMessage[];
 }
 
-export default function MessagesList({ room_id, initial_messages }: Props) {
-  const { messages, sendMessage } = useChatSocket({ room_id, initial_messages });
+export default function MessagesList({ room, initial_messages }: Props) {
+  const { messages, sendMessage } = useChatSocket({ room, initial_messages });
   const { containerRef, bottomRef } = useIsBottom({ items: messages });
+  const user = useAuth(state => state.user);
+
+  const canSendMessage = () => room?.members.some(member => member === user?.uid);
 
   return (
     <>
@@ -25,7 +30,11 @@ export default function MessagesList({ room_id, initial_messages }: Props) {
         <div ref={bottomRef} />
       </div>
       <div className="p-4 px-6 bg-purple-2">
-        <MessageInput bottomRef={bottomRef} onSend={sendMessage} />
+        {canSendMessage() ? (
+          <MessageInput bottomRef={bottomRef} onSend={sendMessage} />
+        ) : (
+          <MessagesInputBlocked room={room} />
+        )}
       </div>
     </>
   );

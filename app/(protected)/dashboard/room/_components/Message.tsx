@@ -27,18 +27,22 @@ function stringToRGBa(str: string) {
 }
 
 export default function Message({ message }: Props) {
-  const color = stringToRGBa(message.send_by);
+  const color = stringToRGBa(message.userId);
+
   return (
     <div
-      className="relative rounded-2xl py-4 px-4 pr-15 flex flex-col gap-2 w-full h-fit max-w-fit"
+      className="relative rounded-2xl py-4 px-4 pr-20 flex flex-col gap-2 w-full h-fit max-w-fit"
       style={{ backgroundColor: color }}
     >
-      <p className="text-xs lg:text-sm font-bold">{message.send_by}</p>
+      <p className="text-xs lg:text-sm font-bold">{message.userId}</p>
       <p className="text-xs lg:text-sm break-words whitespace-pre-wrap">{message.content}</p>
       <p className="text-xs text-gray-400 absolute bottom-2 right-2">
-        {message.send_at !== 'pending' &&
-          message.send_at.toString().split('T')[1].split('.')[0].split(':').slice(0, 2).join(':')}
-        {message.send_at === 'pending' && '⏱'}
+        {message.status === 'pending'
+          ? '⏱'
+          : new Date(message.createdAt).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
       </p>
     </div>
   );

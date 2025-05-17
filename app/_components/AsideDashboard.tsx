@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AnonymousMaskIcon, GearIcon, InfoIcon, LinkIcon, RoomIcon } from '../_ui/icons';
+import { AnonymousMaskIcon, InfoIcon, LinkIcon, RoomIcon } from '../_ui/icons';
 import { useIsMobileLarge } from '../_hooks/useIsMobileLarge';
 import { useAuth } from '../_hooks/useAuth';
 import { useRouter } from 'next/navigation';
@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 export default function AsideDashboard() {
   const { isMobileLg } = useIsMobileLarge();
   const router = useRouter();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = async () => {
     await logout();
@@ -33,21 +33,15 @@ export default function AsideDashboard() {
                 </Link>
               </li>
               <li>
-                <Link href={`/dashboard/profile`} className="flex items-center gap-2">
+                <Link href={`/dashboard/my-profile`} className="flex items-center gap-2">
                   <AnonymousMaskIcon className="w-7 h-7" />
                   Mi perfil
                 </Link>
               </li>
               <li>
-                <Link href={`/dashboard/configuration`} className="flex items-center gap-2">
-                  <GearIcon className="w-7 h-7" />
-                  Configuración
-                </Link>
-              </li>
-              <li>
                 <Link href={`/dashboard/information`} className="flex items-center gap-2">
                   <InfoIcon className="w-7 h-7" />
-                  Información
+                  Descubre
                 </Link>
               </li>
               <li>
@@ -68,10 +62,7 @@ export default function AsideDashboard() {
                 className="rounded-full w-12 h-12 object-cover"
               />
               <div>
-                <h3 className="font-semibold">Valentina londoño</h3>
-                <p className="text-sm text-gray-400">
-                  &quot;<span>admirando un felino</span>&quot;
-                </p>
+                <h3 className="font-semibold">{user?.displayName}</h3>
               </div>
             </div>
             <button
@@ -94,13 +85,8 @@ export default function AsideDashboard() {
                 </Link>
               </li>
               <li>
-                <Link href={`/dashboard/profile`} className="flex items-center gap-2">
+                <Link href={`/dashboard/my-profile`} className="flex items-center gap-2">
                   <AnonymousMaskIcon className="w-7 h-7 text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link href={`/dashboard/configuration`} className="flex items-center gap-2">
-                  <GearIcon className="w-7 h-7" />
                 </Link>
               </li>
               <li>

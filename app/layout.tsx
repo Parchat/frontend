@@ -15,6 +15,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Parchat',
@@ -41,19 +42,21 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="font-raleway overflow-x-hidden">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-        {children}
+        <Providers>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+          {children}
+        </Providers>
       </body>
     </html>
   );

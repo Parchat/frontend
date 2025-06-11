@@ -24,7 +24,7 @@ export default function Header() {
           </div>
         </div>
         <div
-          className={`${opened ? 'top-[10vh]' : 'top-[-20vh]'} transition-all duration-1000 ease-in-out w-[100vw] h-[20vh] bg-darkblue absolute z-10 border-t-2 border-t-purple border-b-2 border-b-purple`}
+          className={`${opened ? 'top-[10dvh]' : 'top-[-20dvh]'} transition-all duration-1000 ease-in-out w-[100dvw] h-[20dvh] bg-darkblue absolute z-10 border-t-2 border-t-purple border-b-2 border-b-purple`}
         >
           <ul className="flex flex-col justify-evenly items-center h-full w-full">
             <li>
@@ -80,7 +80,6 @@ export default function Header() {
           >
             Parchemos
           </Link>
-          <Link href="/login-gest">Entrar como Invitado</Link>
         </div>
       </div>
     </header>

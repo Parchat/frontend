@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { AnonymousMaskIcon, InfoIcon, LinkIcon, RoomIcon } from '../_ui/icons';
+import { AnonymousMaskIcon, InfoIcon, RoomIcon } from '../_ui/icons';
 import { useIsMobileLarge } from '../_hooks/useIsMobileLarge';
 import { useAuth } from '../_hooks/useAuth';
 import { useRouter } from 'next/navigation';
@@ -44,12 +44,6 @@ export default function AsideDashboard() {
                   Descubre
                 </Link>
               </li>
-              <li>
-                <Link href={`/dashboard/owners`} className="flex items-center gap-2">
-                  <LinkIcon className="w-7 h-7" />
-                  Autores
-                </Link>
-              </li>
             </ul>
           </nav>
           <div className="flex flex-col justify-center items-center gap-5">
@@ -76,27 +70,22 @@ export default function AsideDashboard() {
       )}
       {/* Mobile aside */}
       {isMobileLg && (
-        <aside className="lg:hidden h-10 flex justify-between items-center">
+        <aside className="lg:hidden h-13 flex justify-between items-center">
           <nav className="w-full h-full">
-            <ul className="w-full h-full grid grid-cols-5 bg-darkblue rounded-tl-2xl rounded-tr-2xl items-center justify-items-center">
+            <ul className="w-full h-full grid grid-cols-3 bg-darkblue rounded-tl-2xl rounded-tr-2xl items-center justify-items-center">
               <li>
                 <Link href={`/dashboard`} className="flex items-center gap-2">
-                  <RoomIcon className="w-7 h-7" />
+                  <RoomIcon className="w-8 h-8" />
                 </Link>
               </li>
               <li>
                 <Link href={`/dashboard/my-profile`} className="flex items-center gap-2">
-                  <AnonymousMaskIcon className="w-7 h-7 text-white" />
+                  <AnonymousMaskIcon className="w-8 h-8 text-white" />
                 </Link>
               </li>
               <li>
                 <Link href={`/dashboard/information`} className="flex items-center gap-2">
-                  <InfoIcon className="w-7 h-7" />
-                </Link>
-              </li>
-              <li>
-                <Link href={`/dashboard/owners`} className="flex items-center gap-2">
-                  <LinkIcon className="w-7 h-7" />
+                  <InfoIcon className="w-8 h-8" />
                 </Link>
               </li>
             </ul>

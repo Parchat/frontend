@@ -4,7 +4,7 @@ import CreateChat from '../room/_components/CreateChat';
 export default function InformationPage() {
   return (
     <section className="w-full h-full overflow-auto flex flex-col">
-      <header className="w-full h-15 bg-semidarkpurple flex justify-center items-center">
+      <header className="w-full h-15 p-2 bg-semidarkpurple flex justify-center items-center">
         <h1 className="font-bold text-2xl">Información</h1>
       </header>
       <div className="w-full flex flex-col p-5 justify-center items-center">

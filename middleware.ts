@@ -1,13 +1,14 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-
 const protectedRoutes = ['/dashboard'];
 const publicRoutes = ['/login', '/login-gest'];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
+  const isProtectedRoute = protectedRoutes.some(
+    route => path === route || path.startsWith(route + '/')
+  );
+  const isPublicRoute = publicRoutes.some(route => path === route || path.startsWith(route + '/'));
 
   const cookie = (await cookies()).get('session')?.value;
   const session = cookie ? cookie : null;

@@ -6,10 +6,11 @@ import { useState } from 'react';
 import { createRoom } from '../../_apis/rooms';
 import { ICreateRoom } from '@/app/_lib/_interfaces/IRoom';
 import { auth } from '@/app/_lib/_firebase/firebase.config';
+import { useRouter } from 'next/navigation';
 
 export default function CreateChat() {
   const [createMode, setCreateMode] = useState(false);
-
+  const router = useRouter();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -18,6 +19,7 @@ export default function CreateChat() {
       if (!res) return;
       queryClient.invalidateQueries({ queryKey: [`all-rooms-dashboard`] });
       setCreateMode(false);
+      router.push(`/dashboard/room/${res.id}`);
     },
   });
 

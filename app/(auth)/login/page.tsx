@@ -15,12 +15,10 @@ export default function Login() {
     await login(payload);
     router.push('/dashboard');
   };
-
   const handleRegister = async (payload: FormData) => {
     await register(payload);
     router.push('/dashboard');
   };
-
   return (
     <section className="flex items-center min-h-screen w-full">
       <Image
@@ -28,7 +26,7 @@ export default function Login() {
         alt="multicolor"
         width={0}
         height={0}
-        className={`hidden lg:block absolute w-[50vw] transition-all duration-700 ease-in-out ${mode === 'login' ? 'left-[-45%]' : 'left-0'} rounded-br-2xl rounded-tr-2xl`}
+        className={`hidden lg:block absolute w-[50vw] transition-all duration-700 ease-in-out ${mode === 'login' ? 'left-[-45%]' : 'left-0'} rounded-br-2xl rounded-tr-2xl bg-black`}
       />
       <div className="w-full">
         {/* Desktop */}
@@ -42,7 +40,7 @@ export default function Login() {
         alt="multicolor"
         width={0}
         height={0}
-        className={`hidden lg:block absolute w-[50vw] transition-all duration-1000 ease-in-out ${mode === 'login' ? 'right-0' : 'right-[-45%]'} rounded-bl-2xl rounded-tl-2xl`}
+        className={`hidden lg:block absolute w-[50vw] transition-all duration-1000 ease-in-out ${mode === 'login' ? 'right-0' : 'right-[-45%]'} rounded-bl-2xl rounded-tl-2xl bg-black`}
       />
     </section>
   );

@@ -1,7 +1,9 @@
+import { useAuth } from '@/app/_hooks/useAuth';
 import { IMessage } from '@/app/_lib/_interfaces/IMessage';
 
 interface Props {
   message: IMessage;
+  selectUser: (user: { userId: string; displayName: string }) => void;
 }
 
 const colorList = [
@@ -26,15 +28,31 @@ function stringToRGBa(str: string) {
   return colorList[index];
 }
 
-export default function Message({ message }: Props) {
+export default function Message({ message, selectUser }: Props) {
+  const { user } = useAuth();
   const color = stringToRGBa(message.userId);
+
+  const handleSelectUser = () => {
+    if (message.userId !== user?.uid) {
+      selectUser({
+        userId: message.userId,
+        displayName: message.displayName,
+      });
+    }
+  };
 
   return (
     <div
       className="relative rounded-2xl py-4 px-4 pr-20 flex flex-col gap-2 w-full h-fit max-w-fit"
       style={{ backgroundColor: color }}
     >
-      <p className="text-xs lg:text-sm font-bold">{message.userId}</p>
+      {message.userId !== user?.uid ? (
+        <p className="text-xs lg:text-sm font-bold cursor-pointer" onClick={handleSelectUser}>
+          {message.displayName}
+        </p>
+      ) : (
+        <p className="text-xs lg:text-sm font-bold">Tú</p>
+      )}
       <p className="text-xs lg:text-sm break-words whitespace-pre-wrap">{message.content}</p>
       <p className="text-xs text-gray-400 absolute bottom-2 right-2">
         {message.status === 'pending'

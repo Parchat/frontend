@@ -3,6 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { getRoomsImIn } from './_apis/rooms';
 import RoomList from './_components/RoomList';
 import LoadingEmoji from '@/app/_components/LoadingEmoji';
+import { getAllChats } from './_apis/chats';
+import ChatList from './_components/ChatList';
 
 export default function Dashboard() {
   const { data: rooms, isLoading } = useQuery({
@@ -10,7 +12,12 @@ export default function Dashboard() {
     queryFn: getRoomsImIn,
   });
 
-  if (isLoading) return <LoadingEmoji />;
+  const { data: chats, isLoading: chatsLoading } = useQuery({
+    queryKey: ['all-chats-dashboard'],
+    queryFn: getAllChats,
+  });
+
+  if (chatsLoading || isLoading) return <LoadingEmoji />;
 
   return (
     <section className="w-full h-full overflow-auto flex flex-col">
@@ -18,6 +25,15 @@ export default function Dashboard() {
         <h1 className="font-bold text-2xl">Mis Chats</h1>
       </header>
       <div className="w-full h-full flex flex-col gap-5 overflow-auto px-[5vw] py-5">
+        <h1 className="font-bold text-2xl">Conversaciones</h1>
+        {chats ? (
+          <ChatList chats={chats} />
+        ) : (
+          <div className="w-full h-full flex justify-center items-center">
+            <h2 className="text-lg text-gray-500">Aun no tienes conversaciones</h2>
+          </div>
+        )}
+        <h1 className="font-bold text-2xl">Salas grupales</h1>
         {rooms ? (
           <RoomList rooms={rooms} />
         ) : (

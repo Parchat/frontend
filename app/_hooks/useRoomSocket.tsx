@@ -1,16 +1,16 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { IMessage } from '../_lib/_interfaces/IMessage';
+import { IRoom } from '../_lib/_interfaces/IRoom';
 import { auth } from '../_lib/_firebase/firebase.config';
 import { toast } from 'react-toastify';
-import { IChat } from '../_lib/_interfaces/IChat';
 
 interface Props {
-  chat: IChat;
+  room: IRoom;
   initial_messages: IMessage[];
 }
 
-export function useChatSocket({ initial_messages, chat }: Props) {
+export function useRoomSocket({ initial_messages, room }: Props) {
   const [messages, setMessages] = useState<IMessage[]>(initial_messages);
   const [pendingMessages, setPendingMessages] = useState<IMessage[]>([]);
   const socketRef = useRef<WebSocket | null>(null);
@@ -26,25 +26,27 @@ export function useChatSocket({ initial_messages, chat }: Props) {
   const sendMessage = (msg: string) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       // Genera un ID temporal único (puedes usar Date.now() o UUID)
-      // const tempId = `pending-${Date.now()}`;
+      const tempId = `pending-${Date.now()}`;
+
       // Añade el mensaje al estado local como "pendiente"
-      // setPendingMessages(prev => [
-      //   ...prev,
-      //   {
-      //     id: tempId,
-      //     content: msg,
-      //     createdAt: new Date().toISOString(),
-      //     status: 'pending',
-      //     roomId: room.id,
-      //     userId: auth.currentUser?.uid,
-      //   } as IMessage,
-      // ]);
+      setPendingMessages(prev => [
+        ...prev,
+        {
+          id: tempId,
+          content: msg,
+          createdAt: new Date().toISOString(),
+          status: 'pending',
+          roomId: room.id,
+          userId: auth.currentUser?.uid,
+        } as IMessage,
+      ]);
+
       // Envía el mensaje al servidor
       const messageToSend = {
-        type: 'DIRECT_CHAT',
+        type: 'CHAT_ROOM',
         payload: {
           content: msg,
-          roomID: chat.id,
+          roomID: room.id,
           type: 'text',
         },
         timestamp: new Date().toISOString(),
@@ -64,8 +66,8 @@ export function useChatSocket({ initial_messages, chat }: Props) {
       socket.onopen = () => {
         socket.send(
           JSON.stringify({
-            type: 'JOIN_DIRECT_CHAT',
-            payload: chat.id,
+            type: 'JOIN_ROOM',
+            payload: room.id,
             timestamp: new Date().toISOString(),
           })
         );
@@ -95,7 +97,7 @@ export function useChatSocket({ initial_messages, chat }: Props) {
     return () => {
       socketRef.current?.close();
     };
-  }, [chat]);
+  }, [room]);
 
   return { messages, sendMessage, pendingMessages };
 }

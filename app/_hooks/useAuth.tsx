@@ -12,7 +12,7 @@ import {
 } from 'firebase/auth';
 import { auth, googleProvider } from '../_lib/_firebase/firebase.config';
 import { loginSchema, registerSchema } from '../(auth)/login/_lib/_schemas/auth';
-import { registerUser } from '../_apis/auth';
+import { generateUser, registerUser } from '../_apis/auth';
 import { createSession, deleteSession } from '../(auth)/login/_lib/_actions/session';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
@@ -84,6 +84,8 @@ export const useAuth = create<Auth>()(set => ({
 
       // Crear una sesión con el token obtenido
       await createSession(token);
+
+      await generateUser();
     } catch (error) {
       console.error('Error during Google login:', error);
     }

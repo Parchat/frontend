@@ -51,7 +51,7 @@ export default function AsideRoom() {
               <li key={room.id} className="text-white p-2 bg-purple-2 rounded-lg mb-2">
                 <Link href={`/dashboard/room/${room.id}`}>
                   <p className="font-bold truncate">{room.name}</p>
-                  <p>{room.lastMessage.content}</p>
+                  <p className="truncate">{room.lastMessage.content}</p>
                 </Link>
               </li>
             ))}

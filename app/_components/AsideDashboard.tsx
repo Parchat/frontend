@@ -47,17 +47,15 @@ export default function AsideDashboard() {
             </ul>
           </nav>
           <div className="flex flex-col justify-center items-center gap-5">
-            <div className="flex items-center gap-2 w-full">
-              <Image
+            <div className="flex flex-col gap-2 w-full">
+              {/* <Image
                 width={50}
                 height={50}
                 alt="image of user"
                 src="https://picsum.photos/400/300"
                 className="rounded-full w-12 h-12 object-cover"
-              />
-              <div>
-                <h3 className="font-semibold">{user?.displayName}</h3>
-              </div>
+              /> */}
+              <h3 className="font-semibold text-center">{user?.displayName}</h3>
             </div>
             <button
               className="bg-purple rounded p-2 w-[80%] cursor-pointer font-bold"

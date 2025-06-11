@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import { createPendingPath, deletePendingPath } from './app/(auth)/login/_lib/_actions/session';
 const protectedRoutes = ['/dashboard'];
 const publicRoutes = ['/login', '/login-gest'];
 
@@ -14,7 +15,16 @@ export default async function middleware(req: NextRequest) {
   const session = cookie ? cookie : null;
 
   if (isProtectedRoute && !session) {
+    await createPendingPath(path);
     return NextResponse.redirect(new URL('/login', req.url));
+  }
+
+  // Obtener la ruta pendiente
+  const pendingPath = (await cookies()).get('pendingPath')?.value;
+  if (pendingPath && session) {
+    console.log('Redirigiendo a la ruta pendiente:', pendingPath);
+    await deletePendingPath();
+    return NextResponse.redirect(new URL(pendingPath, req.url));
   }
 
   if (isPublicRoute && session) {

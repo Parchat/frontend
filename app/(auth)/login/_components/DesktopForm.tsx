@@ -1,4 +1,5 @@
 'use client';
+import GoogleLoginButton from '@/app/_components/GoogleLoginButton';
 import { useFormStatus } from 'react-dom';
 interface Props {
   setMode: (mode: string) => void;
@@ -44,6 +45,8 @@ export default function DesktopForm({ setMode, registerAction, loginAction }: Pr
             />
           </div>
           <SubmitButton text="Ingresar a la plataforma" />
+
+          <GoogleLoginButton />
         </form>
         <div className="flex gap-1">
           <p>¿Aún no tienes una cuenta?</p>
@@ -53,6 +56,7 @@ export default function DesktopForm({ setMode, registerAction, loginAction }: Pr
         </div>
       </section>
 
+      {/* REGISTRO */}
       <section className="w-[100%] flex flex-col items-center gap-5 max-w-[600px] mx-auto">
         <header className="flex flex-col items-center gap-1">
           <h1 className="text-2xl font-extrabold text-center">Regístrate y Conecta</h1>

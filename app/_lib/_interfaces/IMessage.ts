@@ -6,5 +6,6 @@ export interface IMessage {
   isDeleted: boolean;
   roomId: string;
   userId: string;
+  displayName: string;
   status?: 'pending' | 'delivered'; // Nuevo campo
 }

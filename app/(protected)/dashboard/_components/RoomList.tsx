@@ -32,7 +32,7 @@ export default function RoomList({ rooms }: Props) {
               </p>
             </div>
           </Link>
-          <div className="flex gap-5 justify-end flex-2/12">
+          {/* <div className="flex gap-5 justify-end flex-2/12">
             {CanExitRoom(sala) && (
               <Tooltip title="Salir de la sala" placement="top">
                 <button className="bg-purple rounded-full">
@@ -45,7 +45,7 @@ export default function RoomList({ rooms }: Props) {
                 <DoorBellIcon className="w-10 h-10 cursor-pointer" />{' '}
               </button>
             </Tooltip>
-          </div>
+          </div> */}
         </article>
       ))}
     </>

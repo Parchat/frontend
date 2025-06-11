@@ -7,14 +7,13 @@ import { toast } from 'react-toastify';
 
 export const createRoom = async (data: ICreateRoom) => {
   const { name, description, userIds } = data;
-  console.log('data', data);
   if (!name || !description || !userIds) {
     toast.error('Por favor completa todos los campos');
     return null;
   }
 
   try {
-    const res = await myAxios.post<ICreateRoom>('/api/v1/chat/rooms', data);
+    const res = await myAxios.post<IRoom>('/api/v1/chat/rooms', data);
     toast.success('Sala creada con éxito');
     return res.data;
   } catch (error: any) {

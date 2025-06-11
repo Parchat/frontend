@@ -1,24 +1,23 @@
 'use client';
 
 import { IMessage } from '@/app/_lib/_interfaces/IMessage';
-import { IRoom } from '@/app/_lib/_interfaces/IRoom';
+import { IChat } from '@/app/_lib/_interfaces/IChat';
 import ChatsInit from '../../_components/ChatsInit';
-import { useRoomSocket } from '@/app/_hooks/useRoomSocket';
+import { useChatSocket } from '@/app/_hooks/useChatSocket';
 
 interface Props {
-  room: IRoom;
+  chat: IChat;
   initial_messages: IMessage[];
 }
 
-export default function MessagesList({ room, initial_messages }: Props) {
-  const { messages, sendMessage, pendingMessages } = useRoomSocket({ room, initial_messages });
-
+export default function MessagesList({ chat, initial_messages }: Props) {
+  const { messages, pendingMessages, sendMessage } = useChatSocket({ initial_messages, chat });
   return (
     <ChatsInit
       messages={messages}
       pendingMessages={pendingMessages}
       sendMessage={sendMessage}
-      room={room}
+      chat={chat}
     />
   );
 }

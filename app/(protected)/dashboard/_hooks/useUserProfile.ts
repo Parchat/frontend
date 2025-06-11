@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 export const useUserProfile = () => {
   const { user } = useAuth();
 
+  console.log(user);
+
   const [loading, setLoading] = useState(true);
   const [userForm, setUserForm] = useState({
     displayName: user?.displayName || '',

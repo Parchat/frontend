@@ -1,4 +1,5 @@
 'use client';
+import GoogleLoginButton from '@/app/_components/GoogleLoginButton';
 import { useState } from 'react';
 
 interface Props {
@@ -48,6 +49,7 @@ export default function MobileForm({ registerAction, loginAction }: Props) {
             />
           </div>
           <button className="bg-purple rounded p-2">Ingresar a la plataforma</button>
+          <GoogleLoginButton />
         </form>
         <div className="flex gap-1">
           <p>¿Aún no tienes una cuenta?</p>

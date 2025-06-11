@@ -1,3 +1,4 @@
+'use client';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { toast } from 'react-toastify';
 import { create } from 'zustand';
@@ -6,17 +7,20 @@ import {
   onAuthStateChanged,
   setPersistence,
   signInWithEmailAndPassword,
+  signInWithPopup,
   User,
 } from 'firebase/auth';
-import { auth } from '../_lib/_firebase/firebase.config';
+import { auth, googleProvider } from '../_lib/_firebase/firebase.config';
 import { loginSchema, registerSchema } from '../(auth)/login/_lib/_schemas/auth';
 import { registerUser } from '../_apis/auth';
 import { createSession, deleteSession } from '../(auth)/login/_lib/_actions/session';
+import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 
 type Auth = {
   user: User | null | undefined;
   initializeAuth: () => void;
   login: (formData: FormData) => Promise<void>;
+  loginWithGoogle: () => Promise<void>;
   register: (formData: FormData) => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -63,6 +67,25 @@ export const useAuth = create<Auth>()(set => ({
       const mensaje =
         error.code === 'auth/user-not-found' ? 'Usuario no encontrado' : error.message;
       toast.error(mensaje);
+    }
+  },
+  loginWithGoogle: async () => {
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+
+      // Iniciar sesión con Google usando el proveedor de autenticación
+      const result = await signInWithPopup(auth, googleProvider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+
+      if (!token) {
+        throw new Error('No se pudo obtener el token de acceso de Google');
+      }
+
+      // Crear una sesión con el token obtenido
+      await createSession(token);
+    } catch (error) {
+      console.error('Error during Google login:', error);
     }
   },
   register: async (formData: FormData) => {

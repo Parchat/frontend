@@ -8,7 +8,7 @@ export interface IRoom {
   imageUrl: string;
   isDeleted: boolean;
   isPrivate: boolean;
-  lastMessage: IMessage;
+  lastMessage?: IMessage;
   members: string[];
   name: string;
   ownerId: string;

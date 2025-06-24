@@ -25,14 +25,8 @@ export default function ChatsInit({
   sendMessage,
 }: Props) {
   const user = useAuth(state => state.user);
-  const [userSelected, setUserSelected] = useState<{ userId: string; displayName: string } | null>(
-    null
-  );
+  const [userSelected, setUserSelected] = useState<IMessage | null>(null);
   const { containerRef, bottomRef } = useIsBottom({ items: [pendingMessages, messages] });
-
-  const handleUserSelect = (user: { userId: string; displayName: string }) => {
-    setUserSelected(user);
-  };
 
   const handleCloseUserModal = () => {
     setUserSelected(null);
@@ -48,14 +42,20 @@ export default function ChatsInit({
     return false;
   };
 
+  const selectUser = (message: IMessage) => {
+    if (room) {
+      setUserSelected(message);
+    }
+  };
+
   return (
     <>
       <div ref={containerRef} className="p-4 h-full flex flex-col gap-5 lg:gap-7 overflow-auto">
         {messages.map(msg => (
-          <Message key={msg.id} message={msg} selectUser={handleUserSelect} />
+          <Message key={msg.id} message={msg} selectUser={selectUser} />
         ))}
         {pendingMessages.map(msg => (
-          <Message key={msg.id} message={msg} selectUser={handleUserSelect} />
+          <Message key={msg.id} message={msg} selectUser={selectUser} />
         ))}
         <div ref={bottomRef} />
       </div>
@@ -66,7 +66,9 @@ export default function ChatsInit({
           room && <MessagesInputBlocked room={room} />
         )}
       </div>
-      {userSelected && <UserModal user={userSelected} handleClose={handleCloseUserModal} />}
+      {userSelected && (
+        <UserModal message={userSelected} handleClose={handleCloseUserModal} room={room} />
+      )}
     </>
   );
 }

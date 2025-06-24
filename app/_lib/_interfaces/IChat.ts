@@ -5,6 +5,6 @@ export interface IChat {
   createdAt: Date | string;
   updatedAt: Date | string;
   isDeleted: boolean;
-  lastMessage: IMessage;
+  lastMessage?: IMessage;
   userIds: string[];
 }

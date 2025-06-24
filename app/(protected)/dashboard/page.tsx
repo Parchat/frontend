@@ -19,6 +19,8 @@ export default function Dashboard() {
 
   if (chatsLoading || isLoading) return <LoadingEmoji />;
 
+  console.log('Chats:', chats);
+
   return (
     <section className="w-full h-full overflow-auto flex flex-col">
       <header className="w-full h-15 bg-semidarkpurple flex justify-center items-center">

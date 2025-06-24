@@ -7,4 +7,5 @@ export interface IChat {
   isDeleted: boolean;
   lastMessage?: IMessage;
   userIds: string[];
+  displayNames: string[];
 }

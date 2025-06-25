@@ -14,10 +14,10 @@ export default function Footer() {
         </div>
         <div className="flex flex-col sm:flex-row w-full justify-end flex-wrap gap-10 lg:gap-32">
           <div className="text-center flex flex-col gap-2">
-            <h3 className="font-semibold">Stacks</h3>
+            <h3 className="font-semibold">Equipo orgulloso</h3>
             <ul className="space-y-3">
-              <li>Sobre Nosotros</li>
-              <li>Otros Proyectos</li>
+              <li>Somos univallunos</li>
+              <li>Otros Proyectos en Github!</li>
               <li>
                 <a
                   href="https://github.com/Parchat"
@@ -25,22 +25,22 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  GitHub
+                  GitHub Parchat
                 </a>
               </li>
             </ul>
           </div>
           <div className="text-center flex flex-col gap-2">
-            <h3 className="font-semibold">Info</h3>
+            <h3 className="font-semibold">En las salas puedes</h3>
             <ul className="space-y-3">
-              <li>Información</li>
-              <li>Salas</li>
+              <li>Buscar</li>
+              <li>Crear</li>
               <li>
                 <Link
                   href="/login"
                   className="text-white hover:text-purple-400 transition-colors duration-300"
                 >
-                  Únete
+                  Unirse
                 </Link>
               </li>
             </ul>

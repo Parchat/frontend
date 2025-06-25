@@ -1,32 +1,24 @@
 'use client';
 
-import { useChatSocket } from '@/app/_hooks/useChatSocket';
-import { IMessage } from '@/app/_interfaces/IMessage';
-import { useEffect, useRef, useState } from 'react';
-import Message from './Message';
-import useIsBottom from '@/app/_hooks/useScroll';
-import MessageInput from './MessageInput';
+import { IMessage } from '@/app/_lib/_interfaces/IMessage';
+import { IRoom } from '@/app/_lib/_interfaces/IRoom';
+import ChatsInit from '../../_components/ChatsInit';
+import { useRoomSocket } from '@/app/_hooks/useRoomSocket';
 
 interface Props {
-  room_id: string;
+  room: IRoom;
   initial_messages: IMessage[];
 }
 
-export default function MessagesList({ room_id, initial_messages }: Props) {
-  const { messages, sendMessage } = useChatSocket({ room_id, initial_messages });
-  const { containerRef, bottomRef } = useIsBottom({ items: messages });
+export default function MessagesList({ room, initial_messages }: Props) {
+  const { messages, sendMessage, pendingMessages } = useRoomSocket({ room, initial_messages });
 
   return (
-    <>
-      <div ref={containerRef} className="p-4 h-full flex flex-col gap-5 lg:gap-10 overflow-auto">
-        {messages.map(msg => (
-          <Message key={msg.id} message={msg} />
-        ))}
-        <div ref={bottomRef} />
-      </div>
-      <div className="p-4 px-6 bg-purple-2">
-        <MessageInput bottomRef={bottomRef} onSend={sendMessage} />
-      </div>
-    </>
+    <ChatsInit
+      messages={messages}
+      pendingMessages={pendingMessages}
+      sendMessage={sendMessage}
+      room={room}
+    />
   );
 }

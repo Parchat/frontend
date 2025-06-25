@@ -1,0 +1,17 @@
+FROM node:22-alpine
+
+RUN mkdir -p /app
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN npm install
+
+COPY . .
+
+COPY next.config.ts ./next.config.ts
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

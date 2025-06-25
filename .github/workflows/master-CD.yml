@@ -18,9 +18,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 👉 Build la imagen Docker
+      # 👉 Build Docker image with Firebase args
       - name: Build Docker image
-        run: docker build -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-prod:${{ github.sha }} .
+        run: |
+          docker build \
+            --build-arg NEXT_PUBLIC_API_URL=${{ secrets.API_URL_PROD }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_API_KEY=${{ secrets.FIREBASE_API_KEY }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${{ secrets.FIREBASE_AUTH_DOMAIN }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.FIREBASE_MESSAGING_SENDER_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }} \
+            --build-arg NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=${{ secrets.FIREBASE_MEASUREMENT_ID }} \
+            -f Dockerfile.prod -t ${{ secrets.DOCKER_USERNAME }}/frontend-prod:${{ github.sha }} .
 
       # 👉 Log in to DockerHub
       - name: DockerHub Login
@@ -36,6 +46,17 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.GCP_VM_IP }} >> ~/.ssh/known_hosts
 
+      - name: Actualizar o agregar imagen en .env
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.GCP_VM_IP }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          script: |
+            cd /home/proyectosdanils/
+            sed -i '/^DOCKER_IMAGE_FRONTEND_PROD=/d' .env
+            echo "DOCKER_IMAGE_FRONTEND_PROD=${{ secrets.DOCKER_USERNAME }}/frontend-prod:${{ github.sha }}" >> .env
+
       # 👉 Desplegar en la VM
       - name: Deploy on GCP VM
         uses: appleboy/ssh-action@v0.1.4
@@ -45,7 +66,4 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           script: |
             cd /home/proyectosdanils/
-            docker compose down frontend-prod
-            docker pull ${{ secrets.DOCKER_USERNAME }}/frontend-prod:${{ github.sha }}
-            export DOCKER_IMAGE_FRONTEND_PROD=${{ secrets.DOCKER_USERNAME }}/frontend-prod:${{ github.sha }}
             docker compose up -d frontend-prod

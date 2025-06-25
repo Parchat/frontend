@@ -2,11 +2,12 @@ services:
   frontend-dev:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.local
     ports:
       - '3000:3000'
     volumes:
-      - .:/home/frontend-dev
-      - /home/frontend-dev/node_modules
+      - .:/app
     environment:
       - NODE_ENV=development
+    env_file:
+      - .env

@@ -22,7 +22,15 @@ export default function AsideDashboard() {
       {!isMobileLg && (
         <aside className="hidden lg:flex lg:flex-col justify-around h-100vh bg-darkblue text-white p-5">
           <div>
-            <h1>Parchat</h1>
+            <Link href={`/dashboard`}>
+              <Image
+                width={300}
+                height={300}
+                alt="logo of the app"
+                src="/parchat-logo.png"
+                className="object-cover mb-5 p-5"
+              />
+            </Link>
           </div>
           <nav>
             <ul className="flex flex-col gap-10">

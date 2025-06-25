@@ -35,7 +35,7 @@ export default function AsideRoom() {
             {chats.map(chat => (
               <li key={chat.id} className="text-white p-2 bg-purple-2 rounded-lg mb-2">
                 <Link href={`/dashboard/chat/${chat.id}`}>
-                  <p className="font-bold">{chat.lastMessage?.displayName}</p>
+                  <p className="font-bold truncate">{chat.displayNames[0]}</p>
                   <p className="truncate">{chat.lastMessage?.content}</p>
                 </Link>
               </li>
